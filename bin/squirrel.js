@@ -1,15 +1,14 @@
+const ChildProcess = require('child_process');
+const path = require('path');
+const appFolder = path.resolve(process.execPath, '..');
+const rootAtomFolder = path.resolve(appFolder, '..');
+const updateDotExe = path.resolve(path.join(rootAtomFolder, 'Update.exe'));
+const exeName = path.basename(process.execPath);
+
 const handleSquirrelEvent = (app) => {
   if (process.argv.length === 1) {
     return false;
   }
-
-  const ChildProcess = require('child_process');
-  const path = require('path');
-
-  const appFolder = path.resolve(process.execPath, '..');
-  const rootAtomFolder = path.resolve(appFolder, '..');
-  const updateDotExe = path.resolve(path.join(rootAtomFolder, 'update.exe'));
-  const exeName = path.basename(process.execPath);
 
   const spawn = function(command, args) {
     let spawnedProcess, error;

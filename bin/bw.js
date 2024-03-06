@@ -25,7 +25,7 @@ const mainWin = async () => {
     }
   })
 
-  win.loadFile(path.join(__dirname, '../app/index.html'),);
+  win.loadFile(path.join(__dirname, '../app/index.html'));
 
   win.once('ready-to-show', async () => {
     try {
