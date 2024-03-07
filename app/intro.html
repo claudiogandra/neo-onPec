@@ -11,10 +11,17 @@
         http-equiv="X-Content-Security-Policy"
         content="default-src 'self'; script-src 'self'"
       />
-    <title>Document</title>
+      <link rel="stylesheet" type="text/css" href="./intro.css">
+    <title>onPec</title>
   </head>
   <body>
-    <p id="info"></p>
+    <div id="intro">
+      <div id="loading"></div>
+      <div id="slogan">
+        <h4 id="progress"><br><br></h4>
+        <p id="msg"></p>
+      </div>
+    </div>
   </body>
-  <script src="./render.js"></script>
+  <script src="./intro.js"></script>
 </html>

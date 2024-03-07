@@ -1,15 +1,10 @@
 const information = document.getElementById('info');
 information.innerText = `
-  ONPEC Mode: ${window.versions.onPec()},
-  Chrome (v${window.versions.chrome()}),
-  Node.js (v${window.versions.node()}), 
+  ONPEC Mode: ${window.versions.onPec()}
+  Chrome (v${window.versions.chrome()})
+  Node.js (v${window.versions.node()})
   Electron (v${window.versions.electron()})
 `;
-
-(async () => {
-  const response = await window.versions.ping();
-  console.log(response);
-})();
 
 document.getElementById('toggle-dark-mode').addEventListener('click', async () => {
   const isDarkMode = await window.darkMode.toggle();

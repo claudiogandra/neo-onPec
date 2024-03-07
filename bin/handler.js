@@ -1,6 +1,6 @@
-const { ipcMain, nativeTheme } = require("electron/main");
+const { BrowserWindow, ipcMain, nativeTheme } = require("electron");
 
-const calls = () => {
+const handler = () => {
   ipcMain.handle('dark-mode:toggle', async () => {
     if (nativeTheme.shouldUseDarkColors) {
       nativeTheme.themeSource = 'light';
@@ -14,8 +14,17 @@ const calls = () => {
   ipcMain.handle('dark-mode:system', async () => {
     nativeTheme.themeSource = 'system';
   });
+
+  ipcMain.handle('sync', async () => {
+    try {
+      return await sync(BrowserWindow.getFocusedWindow());
+
+    } catch (error) {
+      return false;
+    }
+  });
   
   ipcMain.handle('ping', async () => 'pong');
 }
 
-module.exports = { calls };
+module.exports = { handler };
