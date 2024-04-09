@@ -48,7 +48,7 @@ app.whenReady().then(() => {
     main.loadFile(path.join(__dirname, './app/index.html'));
   })
 
-  intro.loadFile(path.join(__dirname, './app/intro.html'));
+  intro.loadFile(path.join(__dirname, './app/intro/intro.html'));
   intro.show();
   
   app.on('activate', () => {

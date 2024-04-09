@@ -19,6 +19,7 @@ const init = async (window) => {
 
     await BKP.db();
     window.setProgressBar(0.1);
+    
     step++;
     await renderProgress(window, 'introLog', `Passo ${step}\nBKP Banco local finalizado`);
     if (process.env.ONPEC == 'DEV') console.log('INTRO', step);
@@ -26,6 +27,7 @@ const init = async (window) => {
     
     await sequelize.authenticate();
     window.setProgressBar(0.2);
+
     step++;
     await renderProgress(window, 'introLog', `Passo ${step}\nBanco local ativado`);
     if (process.env.ONPEC == 'DEV') console.log('INTRO', step);

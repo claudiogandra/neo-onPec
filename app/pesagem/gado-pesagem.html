@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta
+        http-equiv="Content-Security-Policy"
+        content="default-src 'self'; script-src 'self'"
+      />
+      <meta
+        http-equiv="X-Content-Security-Policy"
+        content="default-src 'self'; script-src 'self'"
+      />
+      <link rel="stylesheet" type="text/css" href="./gado-pesagem.css">
+    <title>onPec - Gado Pesagem</title>
+  </head>
+  <body>
+    <main>
+      <section id="gado-pesagem">
+        <div id="form-gado-pesagem">
+          <label class="lbl-gado-pesagem" for="campo-brinco-gado-pesagem">Brinco</label>
+          <input id="campo-brinco-gado-pesagem" type="text" name="campo-brinco-gado-pesagem" />
+
+          <label class="lbl-gado-pesagem" for="campo-sexo-gado-pesagem">Sexo</label>
+          <select id="campo-sexo-gado-pesagem" name="campo-sexo-gado-pesagem" title="campo-sexo-gado-pesagem">
+            <option value="0" disabled selected>Escolher Sexo...</option>
+            <option value="F">Fêmea</option>
+            <option value="M">Macho</option>
+          </select>
+
+          <label class="lbl-gado-pesagem" for="campo-raca-gado-pesagem">Raça</label>
+          <select id="campo-raca-gado-pesagem" name="campo-raca-gado-pesagem" title="campo-raca-gado-pesagem">
+            <option value="0" disabled selected>Escolher Raça...</option>
+          </select>
+
+          <label class="lbl-gado-pesagem" for="campo-lote-gado-pesagem">Lote</label>
+          <select id="campo-lote-gado-pesagem" name="campo-lote-gado-pesagem" title="campo-lote-gado-pesagem">
+            <option value="0" disabled selected>Escolher Lote...</option>
+          </select>
+
+          <label class="lbl-gado-pesagem" for="campo-pasto-gado-pesagem">Pasto</label>
+          <select id="campo-pasto-gado-pesagem" name="campo-pasto-gado-pesagem" title="campo-pasto-gado-pesagem">
+            <option value="0" disabled selected>Escolher Pasto...</option>
+          </select>
+
+          <label class="lbl-gado-pesagem" for="campo-fase-gado-pesagem">Fase</label>
+          <select id="campo-fase-gado-pesagem" name="campo-fase-gado-pesagem" title="campo-fase-gado-pesagem">
+            <option value="0" disabled selected>Escolher Fase...</option>
+            <option value="">(Não definido)</option>
+          </select>
+          
+          <label class="lbl-gado-pesagem" for="campo-novo-peso-gado-pesagem">Novo Peso</label>
+          <input id="campo-novo-peso-gado-pesagem" type="text" name="campo-novo-peso-gado-pesagem" />
+
+          <button id="botao-pesquisar" class="submit">Adicionar Pesagem</button>
+        </div>
+        <div id="tbl-gado-pesagem">
+          <!-- PESAGENS DO BRINCO SELECIONADO -->
+        </div>
+      </section>
+
+      <section id="log-return">
+        <p id="msg-return">
+          <!-- RETORNO DA AÇÃO -->
+        </p>
+      </section>
+    </main>
+  </body>
+  <script src="./gado-pesagem.js"></script>
+</html>

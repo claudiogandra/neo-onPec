@@ -18,7 +18,7 @@ const mainWin = () => {
       preload: path.join(__dirname, 'preIndex.js'),
       nodeIntegration: true,
       contextIsolation: true,
-      enableRemoteModule: true,
+      enableRemoteModule: false,
       devTools: true
     }
   });
@@ -33,7 +33,7 @@ const mainWin = () => {
 const introWin = () => {
   // Criar janela de navegacao
   const win = new BrowserWindow({
-    width: 300,
+    width: 420,
     minHeight: 500,
     transparent: true,
     autoHideMenuBar: true,
@@ -46,7 +46,7 @@ const introWin = () => {
       preload: path.join(__dirname, 'preIntro.js'),
       nodeIntegration: true,
       contextIsolation: true,
-      enableRemoteModule: true,
+      enableRemoteModule: false,
       devTools: true
     }
   });
