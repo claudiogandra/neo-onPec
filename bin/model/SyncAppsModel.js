@@ -1,6 +1,6 @@
-require("dotenv").config();
 const sequelize = require('../data/db');
-const { DataTypes } = require(sequelize);
+const { DataTypes } = require('sequelize');
+const term = require("../resources/terminal");
 
 const Sync = sequelize.define('tst_sync', {
   id: {
@@ -16,11 +16,7 @@ const Sync = sequelize.define('tst_sync', {
   usuario: {
     type: DataTypes.STRING,
     allowNull: false,
-  },
-  modulo: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
+  }
 },
 {
   frezzeTableName: true,
@@ -34,7 +30,7 @@ Sync.getLastCreatedAt = async () => {
     }).getDataValue('lastCreatedAt');
 
   } catch (error) {
-    if (process.env.ONPEC == 'DEV') console.log(error); // Criar método de arquivo de erros 'logDBerrors'
+    term(error); // Criar método de arquivo de erros 'logDBerrors'
     throw new Error('Erro ao buscar os dados: ' + error.message);
   }
 }

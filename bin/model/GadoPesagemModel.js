@@ -1,11 +1,11 @@
-require("dotenv").config();
 const sequelize = require('../data/db');
-const { DataTypes } = require('sequelize');
+const { DataTypes, Op } = require('sequelize');
+const term = require("../resources/terminal");
 
 const GadoPesagem = sequelize.define('tst_gado_pesagem', {
   id: {
-    type: sequelize.UUID,
-    defaultValue: sequelize.UUIDV4,
+    type: DataTypes.UUID,
+    defaultValue: DataTypes.UUIDV4,
     allowNull: false,
     primaryKey: true,
   },
@@ -64,7 +64,7 @@ GadoPesagem.getLastData = async (paramDate, logging) => {
     });
     
   } catch (error) {
-    if (process.env.ONPEC == 'DEV') console.log(error); // Criar método de arquivo de erros 'logDBerrors'
+    term(error); // Criar método de arquivo de erros 'logDBerrors'
     throw new Error('GADO PESAGEM - Erro ao buscar os dados: ' + error.message);
   }
 };

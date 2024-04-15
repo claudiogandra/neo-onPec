@@ -6,6 +6,7 @@ const handleSquirrelEvent = require('./bin/squirrel');
 const { mainWin, introWin, currentWin } = require('./bin/window');
 const { handler } = require('./bin/handler');
 const { init } = require('./bin/api/init');
+const term = require('./bin/resources/terminal');
 
 if (require('electron-squirrel-startup')) return;
 
@@ -17,7 +18,7 @@ updateElectronApp({
 handler();
 
 app.whenReady().then(() => {
-  if (process.env.ONPEC == 'DEV') console.log('INTRO WINDOW');
+  term('INTRO WINDOW');
   const intro = introWin();
 
   intro.once('show', async () => {
@@ -25,12 +26,12 @@ app.whenReady().then(() => {
 
     main.once('ready-to-show', async () => {
       try {
-        const start = await init(intro);
+        const start = await init(intro, app.getVersion());
 
-        if (process.env.ONPEC == 'DEV') console.log('INIT Result', start);
+        term('INIT Result', start);
 
         if (start === true) {
-          if (process.env.ONPEC == 'DEV') console.log('INDEX WINDOW');
+          term('INDEX WINDOW');
           main.show();
           intro.destroy();
         }
@@ -41,7 +42,7 @@ app.whenReady().then(() => {
         }
         
       } catch (error) {
-        if (process.env.ONPEC == 'DEV') console.log('ERRO FATAL (Home):', error.message);
+        term('ERRO FATAL (Home):', error.message);
       }
     })
     

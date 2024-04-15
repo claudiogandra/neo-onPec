@@ -1,48 +1,78 @@
 require('dotenv').config();
-const BKP = require('../data/bkp');
 const sequelize = require('../data/db');
+const BKP = require('../data/bkp');
 const sleep = require('../resources/sleep');
+const term = require('../resources/terminal');
+const renderProcess = require('./render');
+const Table = require('../data/table');
 
-const renderProgress = async (window, target, obj) => {
-  window.webContents.send(target, obj);
-  await sleep(750);
-  return;
-}
-
-const init = async (window) => {
-  if (process.env.ONPEC == 'DEV') console.log('INIT START');
-  await sleep(750);
+const init = async (window, version = false) => {
+  term(`INIT START${(!version) ? ' | Versão: ' + version : ''}`);
 
   try {
     window.setProgressBar(0.0);
-    let step = 0;
+    let step = 1;
 
+    // Faz BKP do estado atual do DB local
     await BKP.db();
     window.setProgressBar(0.1);
-    
-    step++;
-    await renderProgress(window, 'introLog', `Passo ${step}\nBKP Banco local finalizado`);
-    if (process.env.ONPEC == 'DEV') console.log('INTRO', step);
+    await renderProcess(
+      window,
+      'introLog',
+      `Passo ${step++}\nBackup de dados local criado`
+    );
     await sleep(3000);
     
+    // Método conecta ao banco local
     await sequelize.authenticate();
     window.setProgressBar(0.2);
+    await renderProcess(
+      window,
+      'introLog',
+      `Passo ${step++}\nBanco local ativo`
+    );
+    await sleep(3000);
 
-    step++;
-    await renderProgress(window, 'introLog', `Passo ${step}\nBanco local ativado`);
-    if (process.env.ONPEC == 'DEV') console.log('INTRO', step);
+    // Criar/Atualizar tabelas do banco local
+    const tables = await Table.config();
+    window.setProgressBar(0.3);
+    for (const table of tables) {
+      const checked = await Table.check(table);
+      await renderProcess(
+        window,
+        'introLog',
+        `Verificando Tabelas\n${checked.msg}`
+      );
+      await sleep(2000);
+    }
+
+    // Método que verifica dados pendentes
+    const dataPending = true;
+    window.setProgressBar(0.6);
+    await renderProcess(
+      window,
+      'introLog',
+      (dataPending)
+        ? `Passo ${step++}\nSincronizando dados pendentes`
+        : `Passo ${step++}\nNão há dados pendentes`
+    );
+    await sleep(3000);
+
+    // Inicia a aplicação
+    window.setProgressBar(0.9);
+    await renderProcess(
+      window,
+      'introLog',
+      `\nIniciando . . .`
+    );
     await sleep(3000);
 
     window.setProgressBar(1.0);
-    await renderProgress(window, 'introLog', `\nIniciando aplicação...`);
-    if (process.env.ONPEC == 'DEV') console.log('START APP');
-    await sleep(3000);
-
     return true;
 
   } catch (error) {
     // Criar método de arquivo de erros 'logDBerrors'
-    if (process.env.ONPEC == 'DEV') console.log(error);
+    term(error);
     return false;
   }
 }
