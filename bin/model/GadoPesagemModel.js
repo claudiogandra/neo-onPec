@@ -1,6 +1,6 @@
-const sequelize = require('../data/db');
+const sequelize = require('../db/db');
 const { DataTypes, Op } = require('sequelize');
-const term = require("../resources/terminal");
+const term = require('../util/terminal');
 
 const GadoPesagem = sequelize.define('tst_gado_pesagem', {
   id: {

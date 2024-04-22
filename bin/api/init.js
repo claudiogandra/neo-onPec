@@ -1,10 +1,10 @@
 require('dotenv').config();
-const sequelize = require('../data/db');
-const BKP = require('../data/bkp');
-const sleep = require('../resources/sleep');
-const term = require('../resources/terminal');
+const sequelize = require('../db/db');
+const BKP = require('../db/bkp');
+const Table = require('../db/table');
+const sleep = require('../util/sleep');
+const term = require('../util/terminal');
 const renderProcess = require('./render');
-const Table = require('../data/table');
 
 const init = async (window, version = false) => {
   term(`INIT START${(!version) ? ' | Versão: ' + version : ''}`);
@@ -19,9 +19,9 @@ const init = async (window, version = false) => {
     await renderProcess(
       window,
       'introLog',
-      `Passo ${step++}\nBackup de dados local criado`
+      { step: `Passo ${step++}`, msg: `Backup de dados local criado` }
     );
-    await sleep(3000);
+    await sleep(2000);
     
     // Método conecta ao banco local
     await sequelize.authenticate();
@@ -29,9 +29,9 @@ const init = async (window, version = false) => {
     await renderProcess(
       window,
       'introLog',
-      `Passo ${step++}\nBanco local ativo`
+      { step: `Passo ${step++}`, msg: `Banco local ativo` }
     );
-    await sleep(3000);
+    await sleep(2000);
 
     // Criar/Atualizar tabelas do banco local
     const tables = await Table.config();
@@ -41,39 +41,39 @@ const init = async (window, version = false) => {
       await renderProcess(
         window,
         'introLog',
-        `Verificando Tabelas\n${checked.msg}`
+        { step: `Passo ${step++}`, msg: `Verificando tabela "${checked.msg}"` }
       );
-      await sleep(2000);
+      await sleep(1000);
     }
 
     // Método que verifica dados pendentes
-    const dataPending = true;
     window.setProgressBar(0.6);
+    const dataPending = true;
     await renderProcess(
       window,
       'introLog',
-      (dataPending)
-        ? `Passo ${step++}\nSincronizando dados pendentes`
-        : `Passo ${step++}\nNão há dados pendentes`
+      {
+        step: `Passo ${step++}`,
+        msg: (dataPending) ? `Sincronizando pendentes` : `Não há pendências}` }
     );
-    await sleep(3000);
+    await sleep(2000);
 
     // Inicia a aplicação
     window.setProgressBar(0.9);
     await renderProcess(
       window,
       'introLog',
-      `\nIniciando . . .`
+      { step: '\n', msg: `Iniciando . . .` }
     );
     await sleep(3000);
 
     window.setProgressBar(1.0);
-    return true;
+    return;
 
   } catch (error) {
     // Criar método de arquivo de erros 'logDBerrors'
     term(error);
-    return false;
+    throw error;
   }
 }
 

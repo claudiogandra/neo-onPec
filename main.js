@@ -2,13 +2,14 @@ require('dotenv').config();
 const { app } = require('electron');
 const path = require('node:path');
 const { updateElectronApp } = require('update-electron-app');
-const handleSquirrelEvent = require('./bin/squirrel');
-const { mainWin, introWin, currentWin } = require('./bin/window');
+/* const handleSquirrelEvent = require('./bin/squirrel.js.OLD'); */
+const { Win } = require('./bin/win');
 const { handler } = require('./bin/handler');
 const { init } = require('./bin/api/init');
-const term = require('./bin/resources/terminal');
+const { shutdown } = require('./bin/api/shutdown');
+const term = require('./bin/util/terminal');
 
-if (require('electron-squirrel-startup')) return;
+/* if (require('electron-squirrel-startup')) return; */
 
 updateElectronApp({
   updateInterval: '24 hour',
@@ -19,30 +20,21 @@ handler();
 
 app.whenReady().then(() => {
   term('INTRO WINDOW');
-  const intro = introWin();
+  const intro = Win.intro();
 
   intro.once('show', async () => {
-    const main = mainWin();
+    const main = Win.main();
 
     main.once('ready-to-show', async () => {
       try {
-        const start = await init(intro, app.getVersion());
-
-        term('INIT Result', start);
-
-        if (start === true) {
-          term('INDEX WINDOW');
-          main.show();
-          intro.destroy();
-        }
-
-        if (start === null) {
-          // Fechar a aplicação se o banco de dados local não inicializar
-          app.quit();
-        }
+        await init(intro, app.getVersion());
+        term('INDEX WINDOW');
+        main.show();
+        intro.destroy();
         
       } catch (error) {
-        term('ERRO FATAL (Home):', error.message);
+        term('ERRO FATAL (Home):\n', error);
+        app.quit();
       }
     })
     
@@ -53,14 +45,19 @@ app.whenReady().then(() => {
   intro.show();
   
   app.on('activate', () => {
-    if (currentWin) {
-      mainWin();
+    if (Win.current()) {
+      Win.main();
     }
   });
+});
+
+app.on('before-quit', async () => {
+  await shutdown();
+  console.log('Conexão com o banco de dados fechada.');
 });
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') app.quit()
 });
 
-if (handleSquirrelEvent(app)) return; // Não executar nada além
+/* if (handleSquirrelEvent(app)) return; // Não executar nada além */

@@ -1,5 +1,6 @@
 require('dotenv').config();
 const path = require('node:path');
+const WixInstaller = require('electron-wix-msi');
 const { FusesPlugin } = require('@electron-forge/plugin-fuses');
 const { FuseV1Options, FuseVersion } = require('@electron/fuses');
 
@@ -8,27 +9,18 @@ module.exports = {
     asar: true,
     icon: path.join(__dirname, 'Wlogo.ico'),
     ignore: [
-      ".env",
       ".gitignore",
       ".yarn",
       ".yarnrc-yml",
       ".editorconfig",
       "test/",
+      "bin/data/",
     ]
   },
 
   rebuildConfig: {},
 
   makers: [
-    {
-      name: '@electron-forge/maker-squirrel',
-      description: 'App Ciclo do Gado - Offline First',
-      config: {
-        bin: 'onPec',
-        /* iconUrl: 'https://roncador.net/images/2022-Logo-Assinatura-White.png',
-        loadingGif: path.join(__dirname, './bin/Wedges-3s-200px.gif' ) */
-      }
-    },
     {
       name: '@electron-forge/maker-zip',
       platforms: ['darwin'],
@@ -41,6 +33,21 @@ module.exports = {
       name: '@electron-forge/maker-rpm',
       config: {},
     },
+    {
+      name: WixInstaller,
+      config: {
+        setupExe: 'ON PEC.exe',
+        setupIcon: path.join(__dirname, 'Wlogo.ico'),
+        noMsi: true
+      }
+    },
+    /* {
+      name: '@electron-forge/maker-squirrel',
+      description: 'App Ciclo do Gado - Offline First',
+      config: {
+        bin: 'onPec',
+      }
+    }, */
   ],
   
   publishers: [

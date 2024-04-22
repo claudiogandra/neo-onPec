@@ -1,6 +1,6 @@
-const sequelize = require('../data/db');
+const sequelize = require('../db/db');
 const { DataTypes } = require('sequelize');
-const term = require('../resources/terminal');
+const term = require('../util/terminal');
 
 const GadoFase = sequelize.define('tbl_gado_fase', {
   codigo: {

@@ -3,8 +3,8 @@ const Sequelize = require('sequelize');
 const path = require('path');
 
 const db = (process.env.ONPEC == 'DEV')
-  ? path.join(__dirname, 'local.test.db')
-  : path.join(__dirname, 'local.db');
+  ? path.join(__dirname, '../data/local.test.db')
+  : path.join(__dirname, '../data/local.db');
 
 const sequelize = new Sequelize({
   dialect: 'sqlite',

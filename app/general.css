@@ -3,10 +3,15 @@
   font-family: "Segoe UI", "Trebuchet MS", sans-serif;
   box-sizing: border-box;
   outline: inherit;
+  text-decoration: none;
+  list-style: none;
 }
 
 button {
+  padding: 6px 12px;
+  border-radius: 6px;
   border: none;
+  cursor: pointer;
 }
 
 html {
@@ -20,12 +25,79 @@ html {
 body {
   padding: 0;
   margin: 0;
+  background: transparent;
   border: none;
+  -webkit-app-region: drag;
 }
 
 main {
   display: flex;
   flex-direction: column;
   width: 100%;
-  padding: 90px 8%;
+  min-height: 100vh;
+  padding: 60px 90px;
+  background: #222222;
+}
+
+main > #title {
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 50px;
+  padding: 6px 0px;
+  z-index: 90;
+}
+
+main > #title > #menu-button {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  width: 120px;
+  background: none;
+  font-size: 16px;
+  text-align: center;
+}
+
+main > #title > div {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: calc(100% - 120px);
+  padding: 0 4px 0 20px;
+}
+
+main > #title > div > #title-logo {
+  width: 36px;
+  object-fit: contain;
+}
+
+main > #title > div > #toggle-dark-mode {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  width: 110px;
+  background: none;
+  font-size: 14px;
+  text-align: center;
+}
+
+main > #title > div > #toggle-dark-mode > h4 {
+  padding: 0;
+  margin: 0;
+  font-family: "Font Awesome 6 Free";
+  font-size: 10px;
+  line-height: 14px;
+  letter-spacing: 1px;
+}
+
+main > #title > div > #toggle-dark-mode > i {
+  font-size: 20px;
 }

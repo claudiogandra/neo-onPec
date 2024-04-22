@@ -1,10 +1,11 @@
 require('dotenv').config();
 const fs = require('fs');
 const path = require('path');
+const term = require('../util/terminal');
 
 const db = (process.env.ONPEC == 'DEV')
-  ? path.join(__dirname, 'local.test.db')
-  : path.join(__dirname, 'local.db');
+  ? path.join(__dirname, '../data/local.test.db')
+  : path.join(__dirname, '../data/local.db');
 
 const BKP = {
   async db() {
@@ -27,6 +28,7 @@ const BKP = {
       return;
 
     } catch (error) {
+      term(`BKP: ${error}`);
       try {
         await fs.promises.writeFile(db, '');
 

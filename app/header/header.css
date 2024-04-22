@@ -6,71 +6,62 @@ header {
   left: 0;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
+  width: 120px;
   height: 100vh;
-  background: #222222AA;
+  padding: 90px 0 0 0;
+  margin: 0;
+  background: #222222;
+  transition: ease-in-out 0.3s;
+  z-index: 80;
 }
 
-nav ul {
+header.hide {
+  left: -120px;
+}
+
+header > #contato {
+  width: 100%;
+  padding: 6px;
+  margin: 0;
+  font-size: 11px;
+  font-weight: normal;
+  text-transform: uppercase;
+  border-radius: 0;
+}
+
+#nav {
+  width: 100%;
+}
+
+ul {
+  display: block;
+  padding: 0;
+  margin: 0;
 	text-align: center;
+  text-decoration: none;
+  list-style: none;
 }
 
-nav ul li {
+li {
 	position: relative;
-  width: 70px;
-  cursor: pointer;
+  display: block;
+  width: 100%;
+  padding: 6px;
 	background: var(--roncador);
+  font-size: 12px;
 	text-transform: uppercase;
-	transition:all .4s ease-out;
+	transition: all .4s ease-out;
+  text-decoration: none;
+  list-style: none;
+  cursor: pointer;
 }
 
-nav ul li:after {
-	position: absolute;
-	background: white;
-	color: var(--roncador);
-	top:0;
-	left: 70px;
-	width: 70px; height: 100%;
-  opacity:.5;
-  transform: perspective(400px) rotateY(90deg);
-	transform-origin: 0 100%;
-	transition:all .4s ease-out;
-}
-
-nav ul li:nth-child(1):after { 
-	content: "Home";
-	line-height: 88px;
-}
-nav ul li:nth-child(2):after { 
-	content: "About";
-	line-height: 88px;
-}
-nav ul li:nth-child(3):after { 
-	content: "Work";
-	line-height: 85px;
-}
-nav ul li:nth-child(4):after { 
-	content: "Say hi";
-	line-height: 70px;
-}
-
-nav ul li:hover {
-	transform: translateX(-70px);
-}
-
-nav ul li:hover:after {
-  opacity: 1;
-	transform: perspective(400px) rotateY(0deg) scale(1) ;
-}
-
-
-nav ul li > div {
-	display: inline-block;
-	padding: 25px 0;
-	background: transparent;
-}
-
-nav ul li div {
+#nav > ul > li > div {
   position: relative;
+	display: block;
+	padding: 25px 6px;
+	background: transparent;
+  cursor: pointer;
 }

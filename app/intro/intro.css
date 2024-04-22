@@ -18,7 +18,6 @@ body {
   height: 100vh;
   background: transparent;
   border-radius: 12px;
-  -webkit-app-region: drag;
 }
 
 #intro {
@@ -73,19 +72,29 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-between;
   width: 100%;
-  min-height: 160px;
+  min-height: 40px;
   padding: 0;
 }
 
-#slogan #progress {
+#slogan > h4 {
   width: 100%;
-  font-size: 16px;
+  padding: 0;
+  margin: 0;
+  font-size: 13px;
   font-weight: bold;
 }
 
-#slogan #msg {
+#slogan > p {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+#footer #versions {
   width: 100%;
   font-size: 11px;
   font-weight: normal;

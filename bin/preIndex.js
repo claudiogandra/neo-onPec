@@ -7,12 +7,16 @@ contextBridge.exposeInMainWorld('versions', {
     : 'Produção',
   node: () => process.versions.node,
   chrome: () => process.versions.chrome,
-  electron: () => process.versions.electron
+  electron: () => process.versions.electron,
 });
 
 contextBridge.exposeInMainWorld('darkMode', {
   toggle: () => ipcRenderer.invoke('dark-mode:toggle'),
   system: () => ipcRenderer.invoke('dark-mode:system'),
+});
+
+contextBridge.exposeInMainWorld('menu', {
+  get: async () => await ipcRenderer.invoke('getHeader')
 });
 
 window.addEventListener('DOMContentLoaded', () => {
