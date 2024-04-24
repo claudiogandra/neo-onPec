@@ -18,6 +18,10 @@
     color: var(--textw);
   }
 
+  input[type="text"], input[type="password"], input[type="email"], select, option {
+    color: var(--textw)
+  }
+
   button {
     background: var(--roncador);
     color: var(--textw);
@@ -27,8 +31,20 @@
     color: var(--textw);
   }
 
-  #title {
+  #topbar {
     background: transparent;
+    color: var(--textw);
+  }
+
+  #modal-progress {
+    background: #181818AA;
+  }
+
+  #modal-progress > div {
+    background: #111111;
+  }
+
+  #modal-progress > div h4 {
     color: var(--textw);
   }
 }
@@ -39,6 +55,10 @@
     color: var(--textb);
   }
 
+  input[type="text"], input[type="password"], input[type="email"], select, option {
+    color: var(--textb)
+  }
+
   button {
     background: var(--roncador);
     color: var(--bgw);
@@ -48,9 +68,21 @@
     color: var(--textb);
   }
 
-  #title {
+  #topbar {
     background: var(--bgel);
     color: var(--bgw);
+  }
+
+  #modal-progress {
+    background: #DEDEDEAA;
+  }
+
+  #modal-progress > div {
+    background: #EFEFEF;
+  }
+
+  #modal-progress > div h4 {
+    color: var(--textb)
   }
 }
 

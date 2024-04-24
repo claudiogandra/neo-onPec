@@ -7,11 +7,49 @@
   list-style: none;
 }
 
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 600;
+}
+
+select {
+  padding: 8px 10px;
+  border-radius: 6px;
+  border: 1px solid #444444;
+}
+
+input[type="text"], input[type="password"], input[type="email"] {
+  padding: 8px 10px;
+  border-radius: 6px;
+  border: 1px solid #444444;
+  transition: 0.3s ease;
+}
+
+input[type="text"]:hover, input[type="text"]:focus, select:hover {
+  border: 1px solid #888888;
+}
+
+input[type="checkbox"]:checked, input[type="radio"]:checked {
+  accent-color: var(--roncador);
+}
+
+input[type="checkbox"]:checked:hover, input[type="radio"]:checked:hover {
+  accent-color: var(--neonroncador);
+}
+
 button {
   padding: 6px 12px;
+  margin: 0;
+  font-weight: 600;
   border-radius: 6px;
-  border: none;
+  border: 1px solid var(--roncador);
   cursor: pointer;
+  transition: 0.3s ease;
+}
+
+button:hover, button:focus {
+  color: var(--roncador);
+  background: var(--textw);
+  border: 1px solid var(--roncador);
 }
 
 html {
@@ -35,69 +73,6 @@ main {
   flex-direction: column;
   width: 100%;
   min-height: 100vh;
-  padding: 60px 90px;
+  padding: 60px 60px;
   background: #222222;
-}
-
-main > #title {
-  position: fixed;
-  top: 0;
-  left: 0;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  height: 50px;
-  padding: 6px 0px;
-  z-index: 90;
-}
-
-main > #title > #menu-button {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-around;
-  width: 120px;
-  background: none;
-  font-size: 16px;
-  text-align: center;
-}
-
-main > #title > div {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  width: calc(100% - 120px);
-  padding: 0 4px 0 20px;
-}
-
-main > #title > div > #title-logo {
-  width: 36px;
-  object-fit: contain;
-}
-
-main > #title > div > #toggle-dark-mode {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-around;
-  width: 110px;
-  background: none;
-  font-size: 14px;
-  text-align: center;
-}
-
-main > #title > div > #toggle-dark-mode > h4 {
-  padding: 0;
-  margin: 0;
-  font-family: "Font Awesome 6 Free";
-  font-size: 10px;
-  line-height: 14px;
-  letter-spacing: 1px;
-}
-
-main > #title > div > #toggle-dark-mode > i {
-  font-size: 20px;
 }

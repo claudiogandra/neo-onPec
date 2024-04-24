@@ -4,6 +4,7 @@ const path = require('node:path');
 const { updateElectronApp } = require('update-electron-app');
 /* const handleSquirrelEvent = require('./bin/squirrel.js.OLD'); */
 const { Win } = require('./bin/win');
+const ejs = require('ejs-electron');
 const { handler } = require('./bin/handler');
 const { init } = require('./bin/api/init');
 const { shutdown } = require('./bin/api/shutdown');
@@ -14,6 +15,10 @@ const term = require('./bin/util/terminal');
 updateElectronApp({
   updateInterval: '24 hour',
   logger: require('electron-log')
+});
+
+ejs.data({
+  basePath: __dirname + './app'
 });
 
 handler();
@@ -38,7 +43,7 @@ app.whenReady().then(() => {
       }
     })
     
-    main.loadFile(path.join(__dirname, './app/index.html'));
+    main.loadFile(path.join(__dirname, './app/index.ejs'));
   })
 
   intro.loadFile(path.join(__dirname, './app/intro/intro.html'));

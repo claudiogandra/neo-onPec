@@ -15,10 +15,6 @@ contextBridge.exposeInMainWorld('darkMode', {
   system: () => ipcRenderer.invoke('dark-mode:system'),
 });
 
-contextBridge.exposeInMainWorld('menu', {
-  get: async () => await ipcRenderer.invoke('getHeader')
-});
-
 window.addEventListener('DOMContentLoaded', () => {
   const replaceText = (selector, text) => {
     const element = document.getElementById(selector);

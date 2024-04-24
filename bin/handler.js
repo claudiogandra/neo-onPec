@@ -1,5 +1,4 @@
 const { BrowserWindow, ipcMain, nativeTheme } = require("electron");
-const { getHeader } = require("./api/header");
 
 const handler = () => {
   ipcMain.handle('dark-mode:toggle', async () => {
@@ -14,10 +13,6 @@ const handler = () => {
   
   ipcMain.handle('dark-mode:system', async () => {
     nativeTheme.themeSource = 'system';
-  });
-
-  ipcMain.handle('getHeader', async () => {
-    return await getHeader();
   });
 
   ipcMain.handle('sync', async () => {
