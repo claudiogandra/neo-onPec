@@ -2,7 +2,7 @@ const sequelize = require('../db/db');
 const { DataTypes, Op } = require('sequelize');
 const term = require('../util/terminal');
 
-const GadoPesagem = sequelize.define('tst_gado_pesagem', {
+const GadoPesagem = sequelize.define('gado_pesagem', {
   id: {
     type: DataTypes.UUID,
     defaultValue: DataTypes.UUIDV4,
@@ -55,7 +55,7 @@ const GadoPesagem = sequelize.define('tst_gado_pesagem', {
 
 GadoPesagem.getLastData = async (paramDate, logging) => {
   try {
-    return await this.findAll({
+    return await GadoPesagem.findAll({
       where: {
         data: {
           [Op.gte]: paramDate,

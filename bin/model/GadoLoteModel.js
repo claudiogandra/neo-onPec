@@ -2,7 +2,7 @@ const sequelize = require('../db/db');
 const { DataTypes } = require('sequelize');
 const term = require('../util/terminal');
 
-const GadoLote = sequelize.define('tbl_gado_lote', {
+const GadoLote = sequelize.define('gado_lote', {
   lote: {
     type: DataTypes.STRING,
     primaryKey: true,
@@ -35,7 +35,7 @@ GadoLote.resetTable = async () => {
     return true;
 
   } catch (error) {
-    term('Erro ao excluir registros da tbl_gado_lote:', error);
+    term('Erro ao excluir registros da gado_lote:', error);
     throw error;
   }
 };

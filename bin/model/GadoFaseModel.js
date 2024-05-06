@@ -2,7 +2,7 @@ const sequelize = require('../db/db');
 const { DataTypes } = require('sequelize');
 const term = require('../util/terminal');
 
-const GadoFase = sequelize.define('tbl_gado_fase', {
+const GadoFase = sequelize.define('gado_fase', {
   codigo: {
     type: DataTypes.STRING,
     primaryKey: true,
@@ -35,7 +35,7 @@ GadoFase.resetTable = async () => {
     return true;
     
   } catch (error) {
-    term('Erro ao excluir registros da tbl_gado_fase:', error);
+    term('Erro ao excluir registros da gado_fase:', error);
     throw error;
   }
 };

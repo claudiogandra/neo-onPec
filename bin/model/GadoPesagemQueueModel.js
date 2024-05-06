@@ -2,7 +2,7 @@ const sequelize = require('../db/db');
 const { DataTypes } = require('sequelize');
 const term = require('../util/terminal');
 
-const GadoPesagemQueued = sequelize.define('tbl_gado_pesagem_queued', {
+const GadoPesagemQueued = sequelize.define('gado_pesagem_queue', {
   id: {
     type: DataTypes.UUID,
     defaultValue: DataTypes.UUIDV4,
@@ -30,7 +30,7 @@ GadoPesagemQueued.resetTable = async () => {
     return true;
     
   } catch (error) {
-    term('Erro ao excluir registros da tbl_gado_fase:', error);
+    term('Erro ao excluir registros da gado_pesagem_queue:', error);
     throw error;
   }
 };

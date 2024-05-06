@@ -2,7 +2,7 @@ const sequelize = require('../db/db');
 const { DataTypes } = require('sequelize');
 const term = require('../util/terminal');
 
-const GadoPasto = sequelize.define('tbl_gado_pasto', {
+const GadoPasto = sequelize.define('gado_pasto', {
   pasto: {
     type: DataTypes.STRING,
     primaryKey: true,
@@ -35,7 +35,7 @@ GadoPasto.resetTable = async () => {
     return true;
 
   } catch (error) {
-    term('Erro ao excluir registros da tbl_gado_pasto:', error);
+    term('Erro ao excluir registros da gado_pasto:', error);
     throw error;
   }
 };
