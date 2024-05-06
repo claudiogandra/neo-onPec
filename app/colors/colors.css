@@ -1,11 +1,15 @@
 :root {
   color-scheme: light dark;
   --roncador: #006e63;
+  --roncador-8o: #006e63d2;
+  --roncador-4o: #006e6388;
   --neonroncador: #1a7d73;
+  --neonroncador-8o: #1a7d73d2;
+  --neonroncador-4o: #1ac9b788;
   --hardneon: #00ded3;
-  --bg: #191613;
+  --bg: #1b1d1b;
   --bgel: #222222;
-  --bgw: #eeeeee;
+  --bgw: #dbdfdd;
   --textw: #efefef;
   --textb: #222222;
   --gradient-start :#ed6ea0;
@@ -19,7 +23,12 @@
   }
 
   input[type="text"], input[type="password"], input[type="email"], select, option {
-    color: var(--textw)
+    color: var(--textw);
+    background: #121212;
+  }
+
+  label {
+    color: var(--textw);
   }
 
   button {
@@ -27,36 +36,24 @@
     color: var(--textw);
   }
 
-  p, span, strong {
-    color: var(--textw);
-  }
-
-  #topbar {
-    background: transparent;
-    color: var(--textw);
-  }
-
-  #modal-progress {
-    background: #181818AA;
-  }
-
-  #modal-progress > div {
-    background: #111111;
-  }
-
-  #modal-progress > div h4 {
+  main p, main span {
     color: var(--textw);
   }
 }
 
 @media (prefers-color-scheme: light) {
   main {
-    background: var(--bgw);
     color: var(--textb);
+    background: var(--bgw);
   }
 
   input[type="text"], input[type="password"], input[type="email"], select, option {
-    color: var(--textb)
+    color: var(--textb);
+    background: #eeeeee;
+  }
+
+  label {
+    color: var(--textb);
   }
 
   button {
@@ -64,25 +61,8 @@
     color: var(--bgw);
   }
 
-  p, span, strong {
+  main p, main span {
     color: var(--textb);
-  }
-
-  #topbar {
-    background: var(--bgel);
-    color: var(--bgw);
-  }
-
-  #modal-progress {
-    background: #DEDEDEAA;
-  }
-
-  #modal-progress > div {
-    background: #EFEFEF;
-  }
-
-  #modal-progress > div h4 {
-    color: var(--textb)
   }
 }
 

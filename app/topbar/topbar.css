@@ -9,6 +9,7 @@
   width: 100%;
   height: 50px;
   padding: 6px 0px;
+  z-index: 70;
 }
 
 #topbar > #menu-button {
@@ -41,31 +42,16 @@
   object-fit: contain;
 }
 
-/* #topbar > div > h4 {
-  font-family: "Font Awesome 6 Free";
-} */
-
-#topbar > div > #toggle-dark-mode {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-around;
-  width: 110px;
-  background: none;
-  font-size: 14px;
-  text-align: center;
-  border: 0;
+@media (prefers-color-scheme: dark) {
+  #topbar {
+    background: #121212EE;
+    color: var(--textw);
+  }
 }
 
-#topbar > div > #toggle-dark-mode > h4 {
-  padding: 0;
-  margin: 0;
-  font-family: "Font Awesome 6 Free";
-  font-size: 10px;
-  line-height: 14px;
-  letter-spacing: 1px;
-}
-
-#topbar > div > #toggle-dark-mode > i {
-  font-size: 20px;
+@media (prefers-color-scheme: light) {
+  #topbar {
+    background: var(--bgel);
+    color: var(--bgw);
+  }
 }

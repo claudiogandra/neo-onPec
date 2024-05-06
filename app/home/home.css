@@ -1,0 +1,7 @@
+@import url("../general.css");
+
+html {
+  width: 100%;
+  min-width: 300px;
+  min-height: 100vh;
+}

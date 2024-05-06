@@ -1,3 +1,7 @@
+@import url("./fonts/solid.min.css");
+@import url("./fonts/fontawesome.min.css");
+@import url("./colors/colors.css");
+
 * {
   color: var(--textw);
   font-family: "Segoe UI", "Trebuchet MS", sans-serif;
@@ -5,6 +9,36 @@
   outline: inherit;
   text-decoration: none;
   list-style: none;
+}
+
+html {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  margin: 0;
+  border: none;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+  background: transparent;
+  border: none;
+  -webkit-app-region: drag;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  min-height: 100vh;
+  padding: 60px 60px 20px 60px;
+  background: #252525;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -52,27 +86,62 @@ button:hover, button:focus {
   border: 1px solid var(--roncador);
 }
 
-html {
+button.btn2 {
   display: flex;
-  flex-direction: column;
-  padding: 0;
-  margin: 0;
-  border: none;
+  gap: 6px;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  background: none;
+  font-size: 14px;
+  text-align: center;
+  border: 0;
 }
 
-body {
+button.btn2 > label {
   padding: 0;
   margin: 0;
-  background: transparent;
-  border: none;
-  -webkit-app-region: drag;
+  font-family: "Font Awesome 6 Free";
+  font-size: 10px;
+  line-height: 14px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
 }
 
-main {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  min-height: 100vh;
-  padding: 60px 60px;
-  background: #222222;
+button.btn2 > i {
+  font-size: 20px;
+}
+
+button.btn2 > svg {
+  min-height: 20px;
+  font-size: 20px;
+}
+
+.spin360 {
+  -webkit-animation: spin 1.4s linear infinite;
+  -moz-animation: spin 1.4s linear infinite;
+  animation: spin 1.4s linear infinite;
+}
+
+/* #topbar > div > h4 {
+  font-family: "Font Awesome 6 Free";
+} */
+
+@-moz-keyframes spin {
+  100% {
+    -moz-transform: rotate(360deg);
+  }
+}
+
+@-webkit-keyframes spin {
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  100% {
+    -webkit-transform: rotate(360deg)
+    ;transform: rotate(360deg);
+  }
 }

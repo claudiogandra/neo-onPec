@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta
+        http-equiv="Content-Security-Policy"
+        content="default-src 'self'; script-src 'self'"
+      />
+      <meta
+        http-equiv="X-Content-Security-Policy"
+        content="default-src 'self'; script-src 'self'"
+      />
+      <link rel="stylesheet" type="text/css" href="./gado-pesagem.css">
+    <title>onPec - Gado Pesagem</title>
+  </head>
+  <body>
+    <%- include('../header/header.ejs') %>
+    
+    <main>
+      <%- include('../topbar/topbar.ejs') %>
+      
+      <section id="gado-pesagem">
+        <div id="form-gado-pesagem">
+          <label class="lbl-gado-pesagem" for="brinco">Brinco</label>
+          <input id="brinco" type="text" name="brinco" />
+
+          <label class="lbl-gado-pesagem" for="sexo">Sexo</label>
+          <select id="sexo" name="sexo" title="sexo">
+            <option value="0" disabled selected>Escolher Sexo...</option>
+            <option value="F">Fêmea</option>
+            <option value="M">Macho</option>
+          </select>
+
+          <label class="lbl-gado-pesagem" for="raca">Raça</label>
+          <select id="raca" name="raca" title="raca">
+            <option value="0" disabled selected>Escolher Raça...</option>
+          </select>
+
+          <label class="lbl-gado-pesagem" for="lote">Lote</label>
+          <select id="lote" name="lote" title="lote">
+            <option value="0" disabled selected>Escolher Lote...</option>
+          </select>
+
+          <label class="lbl-gado-pesagem" for="pasto">Pasto</label>
+          <select id="pasto" name="pasto" title="pasto">
+            <option value="0" disabled selected>Escolher Pasto...</option>
+          </select>
+
+          <label class="lbl-gado-pesagem" for="fase">Fase</label>
+          <select id="fase" name="fase" title="fase">
+            <option value="0" disabled selected>Escolher Fase...</option>
+            <option value="">(Não definido)</option>
+          </select>
+          
+          <label class="lbl-gado-pesagem" for="novo-peso">Novo Peso</label>
+          <input id="novo-peso" type="text" name="novo-peso" />
+
+          <button id="btn-remove" class="hide">Remover</button>
+          <button id="btn-cancel" class="hide">Cancelar</button>
+          <button id="btn-pesagem" class="hide">+ Pesagem</button>
+        </div>
+        <div id="tbl-gado-pesagem">
+          <!-- PESAGENS DO BRINCO SELECIONADO -->
+        </div>
+      </section>
+    </main>
+  </body>
+  <script src="../general.js"></script>
+  <script src="./gado-pesagem.js"></script>
+</html>

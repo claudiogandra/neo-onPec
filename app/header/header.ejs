@@ -1,5 +1,5 @@
 <head>
-  <link rel="stylesheet" type="text/css" href="./header/header.css">
+  <link rel="stylesheet" type="text/css" href="../header/header.css">
 </head>
 <header class="hide">
   <button id="close-button">
@@ -8,35 +8,41 @@
   <nav id="nav">
     <ul>
       <li>
-        <div class="home-icon">
-          <div class="roof">Início</div>
+        <div>
+          <div url="home">Início</div>
         </div>
       </li>
       <li>
-        <div class="about-icon">
-          <div class="head">Pesagem</div>
+        <div>
+          <div url="gado-pesagem">Pesagem</div>
         </div>
       </li>
       <li>
-        <div class="work-icon">
-          <div class="paper">Lote</div>
+        <div>
+          <div url="gado-lote">Lote</div>
         </div>
       </li>
       <li>
-        <div class="mail-icon">
-          <div class="mail-base">Pasto</div>
+        <div>
+          <div url="gado-pasto">Pasto</div>
         </div>
       </li>
     </ul>
   </nav>
-  <button id="ajuda">Ajuda</button>
+  <div id="system-opt">
+    <button id="toggle-dark-mode" class="btn2">
+      <h4>Modo Escuro</h4>
+      <i class="fa-solid fa-toggle-on" aria-hidden="true"></i>
+    </button>
+    <button id="ajuda">Ajuda</button>
+  </div>
 </header>
 
+<div id="modal-overlay" class="hide">
+</div>
 <div id="modal-progress" class="hide">
-  <div>
-    <section>
-      <h4>TESTE</h4>
-      <p>TESTESTESTESTSETSETSETSET</p>
-    </section>
-  </div>
+  <section>
+    <label></label>
+    <p></p>
+  </section>
 </div>

@@ -8,8 +8,8 @@ const Win = {
     nativeTheme.themeSource = 'dark';
     const bw = new BrowserWindow({
       width: 1200,
-      minWidth: 480,
-      height: 600,
+      minWidth: 600,
+      height: 720,
       minHeight: 500,
       autoHideMenuBar: true,
       resizable: true,
@@ -20,13 +20,13 @@ const Win = {
         nodeIntegration: true,
         contextIsolation: true,
         enableRemoteModule: false,
-        devTools: true
+        devTools: (process.env.ONPEC == 'DEV') ? true : false,
       }
     });
 
     bw.setIcon(path.join(__dirname, 'logo.ico'));
 
-    term('INDEX CONFIG');
+    term('MAIN CONFIG');
     
     return bw;
   },
@@ -48,7 +48,7 @@ const Win = {
         nodeIntegration: true,
         contextIsolation: true,
         enableRemoteModule: false,
-        devTools: true
+        devTools: (process.env.ONPEC == 'DEV') ? true : false,
       }
     });
 

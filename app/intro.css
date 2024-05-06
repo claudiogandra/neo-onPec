@@ -1,7 +1,7 @@
-@import url("../general.css");
-@import url("../fonts/solid.min.css");
-@import url("../fonts/fontawesome.min.css");
-@import url("../colors/colors.css");
+@import url("./general.css");
+@import url("./fonts/solid.min.css");
+@import url("./fonts/fontawesome.min.css");
+@import url("./colors/colors.css");
 
 html {
   width: 100%;
@@ -64,7 +64,7 @@ body {
   height: 140px;
   padding: 0;
   margin: 0;
-  background: url("../img/Wlogo.gif") no-repeat center center;
+  background: url("./img/Wlogo.gif") no-repeat center center;
   background-size: contain;
 }
 

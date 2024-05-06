@@ -7,7 +7,7 @@ const { Win } = require('./bin/win');
 const ejs = require('ejs-electron');
 const { handler } = require('./bin/handler');
 const { init } = require('./bin/api/init');
-const { shutdown } = require('./bin/api/shutdown');
+const { shutdown } = require('./bin/util/shutdown');
 const term = require('./bin/util/terminal');
 
 /* if (require('electron-squirrel-startup')) return; */
@@ -33,9 +33,10 @@ app.whenReady().then(() => {
     main.once('ready-to-show', async () => {
       try {
         await init(intro, app.getVersion());
-        term('INDEX WINDOW');
         main.show();
+        term('MAIN WINDOW');
         intro.destroy();
+        term('INTRO DESTROY');
         
       } catch (error) {
         term('ERRO FATAL (Home):\n', error);
@@ -43,10 +44,10 @@ app.whenReady().then(() => {
       }
     })
     
-    main.loadFile(path.join(__dirname, './app/index.ejs'));
+    main.loadFile(path.join(__dirname, './app/home/home.ejs'));
   })
 
-  intro.loadFile(path.join(__dirname, './app/intro/intro.html'));
+  intro.loadFile(path.join(__dirname, './app/intro.html'));
   intro.show();
   
   app.on('activate', () => {
@@ -58,11 +59,11 @@ app.whenReady().then(() => {
 
 app.on('before-quit', async () => {
   await shutdown();
-  console.log('Conexão com o banco de dados fechada.');
+  console.log('Conexao com o banco de dados fechada.');
 });
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') app.quit()
 });
 
-/* if (handleSquirrelEvent(app)) return; // Não executar nada além */
+/* if (handleSquirrelEvent(app)) return; // Nao executar nada alem */

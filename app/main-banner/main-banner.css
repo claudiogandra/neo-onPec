@@ -1,0 +1,289 @@
+#main-banner {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 0 calc(20px + 5%);
+  margin: 0;
+}
+
+.ss-heading {
+  font-weight: 400;
+  text-transform: uppercase;
+  font-size: calc(14px + 0.3vw);
+  letter-spacing: 2px;
+}
+
+.ss-dots {
+  display: flex;
+}
+
+.ss-dots > span {
+  width: 6px;
+  height: 6px;
+  border: 1px solid currentColor;
+  border-radius: 6px;
+  margin-right: 2px;
+  opacity: .6;
+  cursor: pointer;
+}
+
+.main__crossing-container {
+  position: relative;
+  display: flex;
+  justify-content: stretch;
+  align-items: center;
+  width: 88%;
+  min-width: 350px;
+  max-height: 150px;
+  padding: 20px 50px;
+  margin: 0;
+  border-radius: 8px;
+  transform: translate(-30px, 40px);
+  z-index: 2;
+}
+
+.main__crossing-image {
+  width: 92px;
+  height: 92px;
+  border: 3px solid hsl(49, 85%, 51%);
+  border-right-color: transparent;
+  border-radius: 50px;
+  box-shadow: 0 0 12px hsla(49, 85%, 51%, 0.7);
+  transform: rotate(0deg);
+  transition: 0.6s ease;
+}
+
+.main__crossing-image::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: url('../img/main-banner-flag.jpg') no-repeat center center;
+  background-size: cover;
+  border-radius: 50px;
+  transform: rotate(0deg);
+  transition: 0.6s ease;
+  z-index: -1;
+}
+
+.main__crossing-image:hover {
+  transform: rotate(-500deg);
+}
+
+.main__crossing-image:hover::before {
+  transform: rotate(500deg);
+}
+
+.main__crossing-current {
+  flex-grow: 2;
+  margin-left: 50px;
+}
+
+.main__crossing-upper {
+  font-size: calc(10px + 0.3vw);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.main__crossing-heading {
+  font-weight: normal;
+  font-size: calc(20px + 0.3vw);
+}
+
+.main__discover {
+  width: 88%;
+  min-width: 350px;
+  border-radius: 8px;
+  padding: 100px 60px 20px;
+  margin-left: auto;
+  transform: translate(30px, -30px);
+}
+
+.main__discover-heading-container {
+  display: flex;
+  align-items: center;
+}
+
+.main__discover-heading {
+  flex-grow: 2;
+}
+
+.main__discover-places {
+  display: flex;
+  width: 75vw;
+  gap: 12px;
+  flex-wrap: wrap;
+  align-items: stretch;
+  padding: 20px 0 2%;
+  margin: 0;
+  list-style: none;
+  transform: translateX( calc((120px + 4vw) * -1) );
+}
+
+.main__discover-place {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  width: calc(24% - 24px);
+  min-width: 150px;
+  max-height: 315px;
+  padding: 20px;
+  margin: 0;
+  border-radius: 8px;
+  border: 0;
+  cursor: inherit;
+}
+
+.main__discover-right {
+  opacity: .6;
+  margin-left: -45px;
+}
+
+.main__discover-place-heading {
+  font-size: calc(14px + 0.3vw);
+  margin-bottom: 0px;
+}
+
+.main__discover-place-sub {
+  font-size: calc(8px + 0.3vw);
+  opacity: .7;
+  transition: 0.4s ease;
+}
+
+.main__discover__more {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.main__discover__more-svg {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 8px;
+}
+
+.main__discover__more-svg.svg-block-icon {
+  padding: 7px;
+}
+
+.main__discover__more-svg.svg-nav-icon, .main__discover__more-svg.svg-more-icon {
+  padding: 9px;
+}
+
+.main__discover__more-svg svg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.4s ease;
+}
+
+.main__discover__more-svg:hover svg {
+  scale: 1.15;
+}
+
+.main__discover__more-svg.svg-block-icon svg {
+  width: 32px;
+  height: 32px;
+  transform: translate(2.4px, 1.6px);
+}
+
+.main__discover__more-svg.svg-nav-icon svg, .main__discover__more-svg.svg-more-icon svg {
+  width: 22px;
+  height: 22px;
+}
+
+.main__discover-right svg {
+  height: 1.6rem;
+}
+
+.blocks-color-1 {
+  background: linear-gradient(20deg, hsla(0, 60%, 50%, .2), hsla(20, 60%, 50%, .3));
+}
+
+.blocks-color-2 {
+  background: linear-gradient(20deg, hsla(280, 60%, 50%, .2), hsla(300, 60%, 50%, .3));
+}
+
+.blocks-color-3 {
+  background: linear-gradient(20deg, hsla(210, 80%, 61%, 0.2), hsla(230, 80%, 61%, 0.3));
+}
+
+.blocks-color-4 {
+  background: linear-gradient(20deg, hsla(120, 60%, 50%, .2), hsla(140, 60%, 50%, .3));
+}
+
+@media only screen and (max-width: 900px) {
+  .main__discover-heading-container {
+    flex-direction: column;
+  }
+  .main__discover-place {
+    width: calc(48% - 24px);
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .main__crossing-container {
+    background-color: hsl(178, 50%, 11%);
+    /* background-image: linear-gradient(
+      150deg, var(--neonroncador-4o), 10%, hsla(0, 0%, 0%, .6) 60%), 
+      url('../img/4NB4.gif'); */
+    background-image: linear-gradient(
+      150deg, var(--neonroncador-4o), 20%, hsla(0, 0%, 10%, 0.65) 60%
+      ), 
+      url('../img/4NB4.gif');
+      box-shadow: 2px 2px 14px hsla(165, 9%, 37%, 0.4);
+  }
+
+  .main__discover {
+    background-image: linear-gradient(
+      310deg, var(--neonroncador-4o), 10%, hsla(0, 0%, 10%, 0.65) 60%
+      ), 
+      url('../img/4NB4.gif');
+    box-shadow: 3px 3px 10px hsla(165, 9%, 37%, 0.2);
+  }
+
+  .main__discover-place, .main__discover-place:hover {
+    background: #181818;
+    box-shadow: 4px 4px 10px hsla(165, 9%, 37%, 0.2);
+  }
+
+  .main__discover__more-svg.svg-nav-icon, .main__discover__more-svg.svg-more-icon {
+    color: var(--textw);
+    background: #1d7e7175;
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  .main__crossing-container {
+    background-image: linear-gradient(
+      150deg, #f4f4f4f3, 50%, #ebebebf3 80%);
+    box-shadow: 0 0px 8px hsl(0, 13%, 95%);
+  }
+
+  .main__discover {
+    background-image: linear-gradient(
+      310deg, var(--neonroncador-8o), 40%, #0fa193ce 60%),
+      url('../img/4NB4.gif');
+    box-shadow: 0 6px 16px hsla(270, 30%, 3%, .4);
+  }
+
+  .main__discover-place, .main__discover-place:hover {
+    background: #efefeff5;
+    box-shadow: 0 6px 16px hsla(270, 30%, 3%, .4);
+  }
+
+  .main__discover__more-svg.svg-nav-icon, .main__discover__more-svg.svg-more-icon {
+    color: var(--textw);
+    background: #167266d2;
+  }
+
+  .main__discover__more-svg.svg-more-icon span {
+    color: var(--textw)
+  }
+}

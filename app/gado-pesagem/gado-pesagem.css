@@ -1,0 +1,78 @@
+@import url("../general.css");
+
+section#gado-pesagem {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: stretch;
+  width: 100%;
+}
+
+#form-gado-pesagem {
+  display: flex;
+  flex-wrap: wrap;
+  flex-grow: 1;
+  justify-content: center;
+  align-items: center;
+  width: calc(40% - 10px);
+  min-width: 250px;
+  margin: 5px 10px;
+}
+
+#form-gado-pesagem > label {
+  width: calc(80px + 1%);
+  font-size: calc(12px + (4 * (0.3vw / 10)));
+  font-weight: 600;
+}
+
+#form-gado-pesagem > input, #form-gado-pesagem > select {
+  width: calc(99% - 80px);
+  margin: 5px 0;
+}
+
+#form-gado-pesagem > input:focus, #form-gado-pesagem > select:focus {
+  border-color: var(--neonroncador);
+}
+
+#form-gado-pesagem > button {
+  width: calc(33%);
+  font-size: calc(12px + (4 * (0.3vw / 10) / 3));
+  margin-top: 20px;
+}
+
+#form-gado-pesagem > button.hide {
+  opacity: 0;
+  pointer-events: none;
+}
+
+#form-gado-pesagem > #brinco {
+  padding: 14px 10px;
+  font-size: 32px;
+  text-align: center;
+}
+
+#tbl-gado-pesagem {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  justify-content: center;
+  align-items: center;
+  width: calc(60% - 30px);
+  min-width: 300px;
+  min-height: 400px;
+  padding: 15px;
+  margin: 5px 10px;
+  border-radius: 8px;
+}
+
+@media (prefers-color-scheme: dark) {
+  #tbl-gado-pesagem {
+    background: #121212EE;
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  #tbl-gado-pesagem {
+    background: #EEEEEE;
+  }
+}

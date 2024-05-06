@@ -12,16 +12,16 @@ contextBridge.exposeInMainWorld('versions', {
 
 contextBridge.exposeInMainWorld('darkMode', {
   toggle: () => ipcRenderer.invoke('dark-mode:toggle'),
-  system: () => ipcRenderer.invoke('dark-mode:system'),
 });
 
-window.addEventListener('DOMContentLoaded', () => {
-  const replaceText = (selector, text) => {
-    const element = document.getElementById(selector);
-    if (element) element.innerText = text;
-  }
+contextBridge.exposeInMainWorld('data', {
+  sync: async () => await ipcRenderer.invoke('sync'),
+});
 
-  for (const type of ['chrome', 'node', 'electron']) {
-    replaceText(`${type}-version`, process.versions[type]);
-  }
+contextBridge.exposeInMainWorld('gadoPesagem', {
+  list: async (brinco) => await ipcRenderer.invoke('gadoPesagem:list', brinco),
+});
+
+contextBridge.exposeInMainWorld('nav', {
+  list: async (page) => await ipcRenderer.invoke('nav', page),
 });
