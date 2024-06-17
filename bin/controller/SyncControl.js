@@ -1,23 +1,27 @@
 require('dotenv').config();
+const term = require('../util/terminal');
+const userData = require('../util/userData');
 const Sync = require('../model/SyncModel');
 const StreamData = require('../util/stream');
-const userData = require('../util/userData');
-const term = require('../util/terminal');
+const sequelize = require('../db/db');
+
+const API_URL = `http://on.roncador.com.br:${(process.env.ONPEC == 'DEV') ? '5115' : '7117'}`;
 
 const SyncControl = {
   async mostRecentDate() {
     try {
-      return await Sync.getLastCreatedAt();
+      const result = await Sync.getLastCreatedAt();
+      return (result !== null) ? result : false;
 
     } catch (error) {
       term(error); // Criar método de arquivo de erros 'logDBerrors'
-      throw new Error('SYNC MOST RECENT DATE - Erro ao buscar os dados: ' + error.message);
+      throw new Error('SYNC - Erro ao buscar mostRecentDate: ' + error.message);
     }
   },
 
   async push(mostRecentDate = false) {
     try {
-      const response = await fetch(`${url}/api/sync/push`, {
+      const response = await fetch(`${API_URL}/api/sync/push`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -40,6 +44,28 @@ const SyncControl = {
     } catch (error) {
       term(error); // Criar método de arquivo de erros 'logDBerrors'
       return false;
+    }
+  },
+
+  async import(data) {
+    try {
+      let transaction = await sequelize.transaction();
+      let count = 0;
+
+      for (const item of data) {
+        await Sync.upsert(item, transaction);
+        count++;
+
+        if (count % 1000 === 0) {
+          await transaction.commit();
+          transaction = await sequelize.transaction();
+        }
+      }
+      return true;
+
+    } catch (error) {
+      term(error); // Criar método de arquivo de erros 'logDBerrors'
+      throw new Error('SYNC - Erro ao importar dados: ' + error.message);
     }
   },
 

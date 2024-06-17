@@ -13,34 +13,22 @@ const GadoPesagem = sequelize.define('gado_pesagem', {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  sexo: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  raca: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  lote: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  pasto: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
   data: {
     type: DataTypes.DATEONLY,
     allowNull: false,
     defaultValue: DataTypes.NOW,
   },
+  lote: {
+    type: DataTypes.STRING,
+  },
+  pasto: {
+    type: DataTypes.STRING,
+  },
   peso: {
     type: DataTypes.DOUBLE,
-    allowNull: false,
   },
   fase: {
     type: DataTypes.STRING(1),
-    allowNull: true,
   },
 }, {
   indexes: [

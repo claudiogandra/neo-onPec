@@ -6,13 +6,13 @@ router.get('/', (req, res) => {
 });
 
 // Rota para outra página (outraPagina.ejs)
-router.get('/gado/gado-pesagem', (req, res) => {
-  res.render('../app/gado/gado-pesagem.ejs');
+router.get('/gado-pesagem/gado-pesagem', (req, res) => {
+  res.render('../app/gado-pesagem/gado-pesagem.ejs');
 });
 
 // Rota para outra página (outraPagina.ejs)
 router.get('/gado/gado-manejo', (req, res) => {
-  res.render('../app/gado/gado-manejo.ejs');
+  res.render('../app/gado-manejo/gado-manejo.ejs');
 });
 
 module.exports = router;

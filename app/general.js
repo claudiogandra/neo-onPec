@@ -49,6 +49,24 @@ const modalShow = async (text, title, closeClick = false) => {
   return;
 }
 
+// Seleciona todos os elementos com a classe 'nav-btn'
+const navBtns = document.querySelectorAll('.nav-btn');
+
+// Itera sobre cada elemento
+navBtns.forEach(async (btn) => {
+    // Adiciona um listener de clique a cada elemento
+    btn.addEventListener('click', async () => {
+        // Obtém o valor do atributo 'url' do elemento clicado
+        const url = btn.getAttribute('url');
+        
+        const href = ((window.location.href).split('/')).reverse();
+        const page = href[0].split('.')[0];
+        
+        // Redireciona para a URL correspondente
+        if (url !== page) await window.nav.location(url); // Adapte conforme a estrutura de seus arquivos
+    });
+});
+
 document.getElementById('sync').addEventListener('click', async () => {
 
   document.querySelector('#sync > svg').classList.add('spin360');

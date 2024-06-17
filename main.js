@@ -1,10 +1,11 @@
-require('dotenv').config();
+'use strict'
+
 const { app } = require('electron');
 const path = require('node:path');
+const ejs = require('ejs-electron');
 const { updateElectronApp } = require('update-electron-app');
 /* const handleSquirrelEvent = require('./bin/squirrel.js.OLD'); */
 const { Win } = require('./bin/win');
-const ejs = require('ejs-electron');
 const { handler } = require('./bin/handler');
 const { init } = require('./bin/api/init');
 const { shutdown } = require('./bin/util/shutdown');

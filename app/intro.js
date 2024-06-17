@@ -1,6 +1,6 @@
 const information = document.querySelector('#versions');
 information.innerText = `
-  ONPEC Mode: ${window.versions.onPec()}
+  onPec: ${window.versions.onPec()}
   Chrome (v${window.versions.chrome()})
   Node.js (v${window.versions.node()})
   Electron (v${window.versions.electron()})
@@ -11,6 +11,6 @@ window.api.introLog((event, obj) => {
   const titleIntro = slogan.querySelector('h4');
   const msgIntro = slogan.querySelector('p');
   
-  titleIntro.innerText = obj.step;
-  msgIntro.innerText = obj.msg;
+  if ('step' in obj) titleIntro.innerText = obj.step;
+  if ('msg' in obj) msgIntro.innerText = obj.msg;
 });

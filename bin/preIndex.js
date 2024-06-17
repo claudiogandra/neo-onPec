@@ -23,5 +23,5 @@ contextBridge.exposeInMainWorld('gadoPesagem', {
 });
 
 contextBridge.exposeInMainWorld('nav', {
-  list: async (page) => await ipcRenderer.invoke('nav', page),
+  location: async (page) => await ipcRenderer.invoke('nav', page),
 });

@@ -42,9 +42,13 @@
   object-fit: contain;
 }
 
+#topbar > div > button > label {
+  color: var(--textw);
+}
+
 @media (prefers-color-scheme: dark) {
   #topbar {
-    background: #121212EE;
+    background: var(--bar);
     color: var(--textw);
   }
 }

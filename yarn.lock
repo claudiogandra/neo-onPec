@@ -905,7 +905,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"async@npm:^3.2.3":
+"async@npm:^1.5.2":
+  version: 1.5.2
+  resolution: "async@npm:1.5.2"
+  checksum: 10/8afcdcee05168250926a3e7bd4dfaa74b681a74f634bae2af424fb716042461cbd20a375d9bc2534daa50a2d45286c9b174952fb239cee4ab8d6351a40c65327
+  languageName: node
+  linkType: hard
+
+"async@npm:^3.2.0, async@npm:^3.2.3":
   version: 3.2.5
   resolution: "async@npm:3.2.5"
   checksum: 10/323c3615c3f0ab1ac25a6f953296bc0ac3213d5e0f1c0debdb12964e55963af288d570293c11e44f7967af58c06d2a88d0ea588c86ec0fbf62fa98037f604a0f
@@ -1263,6 +1270,15 @@ __metadata:
   version: 2.0.20
   resolution: "colorette@npm:2.0.20"
   checksum: 10/0b8de48bfa5d10afc160b8eaa2b9938f34a892530b2f7d7897e0458d9535a066e3998b49da9d21161c78225b272df19ae3a64d6df28b4c9734c0e55bbd02406f
+  languageName: node
+  linkType: hard
+
+"commander@npm:2.9.0":
+  version: 2.9.0
+  resolution: "commander@npm:2.9.0"
+  dependencies:
+    graceful-readlink: "npm:>= 1.0.0"
+  checksum: 10/65d08cbbf0ce36d3326e4904b8b8be1571547e96ae33834a7296fc84ab2d703c4b9f4ac2836ab8a7d33b145b545d20ac820f67bfef52cca021dbc8fbdf960686
   languageName: node
   linkType: hard
 
@@ -2164,6 +2180,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"graceful-readlink@npm:>= 1.0.0":
+  version: 1.0.1
+  resolution: "graceful-readlink@npm:1.0.1"
+  checksum: 10/9ecd6cbbcac5a0070c89f3e4279a9a812f21270aa0eacd3d7150c05ec27e0a0773064813226cbb18fa28162f44a7175a9a4911ca9e539d6c03ee9d3f21b78381
+  languageName: node
+  linkType: hard
+
 "has-flag@npm:^4.0.0":
   version: 4.0.0
   resolution: "has-flag@npm:4.0.0"
@@ -2304,7 +2327,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"iconv-lite@npm:^0.6.2":
+"iconv-lite@npm:^0.5.0":
+  version: 0.5.2
+  resolution: "iconv-lite@npm:0.5.2"
+  dependencies:
+    safer-buffer: "npm:>= 2.1.2 < 3"
+  checksum: 10/b48a1c8a173b638cb3d9a21674acbfed1c1fd8e81f6dc52e63cf44d3b56f37fd48f8ff81d93a71c8b60b4dfb464d3e87f606df5f8a0f0247c21737665059565c
+  languageName: node
+  linkType: hard
+
+"iconv-lite@npm:^0.6.2, iconv-lite@npm:^0.6.3":
   version: 0.6.3
   resolution: "iconv-lite@npm:0.6.3"
   dependencies:
@@ -3123,6 +3155,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"needle@npm:^3.0.0":
+  version: 3.3.1
+  resolution: "needle@npm:3.3.1"
+  dependencies:
+    iconv-lite: "npm:^0.6.3"
+    sax: "npm:^1.2.4"
+  bin:
+    needle: bin/needle
+  checksum: 10/31925ec72b93ffd1f5614a4f381878e7c31f1838cd36055aa4148c49a3a9d16429987fc64b509538f61fccbb49aac9ec2e91b1ed028aafb16f943f1993097d96
+  languageName: node
+  linkType: hard
+
 "negotiator@npm:^0.6.2, negotiator@npm:^0.6.3":
   version: 0.6.3
   resolution: "negotiator@npm:0.6.3"
@@ -3145,11 +3189,26 @@ __metadata:
     electron-log: "npm:^5.1.1"
     electron-progressbar: "npm:^2.2.1"
     electron-wix-msi: "npm:^5.1.3"
+    network: "npm:^0.7.0"
     sequelize: "npm:^6.37.1"
     sqlite3: "npm:^5.1.7"
     update-electron-app: "npm:^3.0.0"
   languageName: unknown
   linkType: soft
+
+"network@npm:^0.7.0":
+  version: 0.7.0
+  resolution: "network@npm:0.7.0"
+  dependencies:
+    async: "npm:^1.5.2"
+    commander: "npm:2.9.0"
+    needle: "npm:^3.0.0"
+    wmic: "npm:^1.0.1"
+  bin:
+    network: bin/network
+  checksum: 10/c5a79b729b29db793fe4d0ac4dd25c010dc43580f63c7079229c495efa6763f9d22a70d449c2c4b15ccf36290f5683b90617d7eae61838a0251ff0d8e340e9b0
+  languageName: node
+  linkType: hard
 
 "nice-try@npm:^1.0.4":
   version: 1.0.5
@@ -3957,10 +4016,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"safer-buffer@npm:>= 2.1.2 < 3.0.0":
+"safer-buffer@npm:>= 2.1.2 < 3, safer-buffer@npm:>= 2.1.2 < 3.0.0":
   version: 2.1.2
   resolution: "safer-buffer@npm:2.1.2"
   checksum: 10/7eaf7a0cf37cc27b42fb3ef6a9b1df6e93a1c6d98c6c6702b02fe262d5fcbd89db63320793b99b21cb5348097d0a53de81bd5f4e8b86e20cc9412e3f1cfb4e83
+  languageName: node
+  linkType: hard
+
+"sax@npm:^1.2.4":
+  version: 1.3.0
+  resolution: "sax@npm:1.3.0"
+  checksum: 10/bb571b31d30ecb0353c2ff5f87b117a03e5fb9eb4c1519141854c1a8fbee0a77ddbe8045f413259e711833aa03da210887df8527d19cdc55f299822dbf4b34de
   languageName: node
   linkType: hard
 
@@ -4711,6 +4777,16 @@ __metadata:
   dependencies:
     "@types/node": "npm:*"
   checksum: 10/b8975e33f9431380eb82707ec39689767f967a8ce362eea5303399618896c983a2dec3ad72fd7273bdf126181c760067519130434344891300ebd54f5d5cbf4a
+  languageName: node
+  linkType: hard
+
+"wmic@npm:^1.0.1":
+  version: 1.1.1
+  resolution: "wmic@npm:1.1.1"
+  dependencies:
+    async: "npm:^3.2.0"
+    iconv-lite: "npm:^0.5.0"
+  checksum: 10/fbe5442359e446c7396fbd32b43ccad2766f0cd6f6bab679762e06ecf255f0d8d2af92d488360a3af8b61bbdb0d285f15c1f2f2223dbd4612338b8c3eec36400
   languageName: node
   linkType: hard
 

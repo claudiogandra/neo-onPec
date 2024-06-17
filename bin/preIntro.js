@@ -7,8 +7,8 @@ contextBridge.exposeInMainWorld('api', {
 
 contextBridge.exposeInMainWorld('versions', {
   onPec: () => (process.env.ONPEC == 'DEV') 
-    ? 'Desenvolvimento' 
-    : 'Produção',
+    ? `${process.env.APP_VERSION} - DEV` 
+    : `${process.env.APP_VERSION} - PROD` ,
   node: () => process.versions.node,
   chrome: () => process.versions.chrome,
   electron: () => process.versions.electron

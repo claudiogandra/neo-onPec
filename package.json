@@ -29,6 +29,7 @@
     "dotenv": "^16.4.5",
     "ejs-electron": "^3.0.0",
     "electron-progressbar": "^2.2.1",
+    "network": "^0.7.0",
     "sequelize": "^6.37.1",
     "sqlite3": "^5.1.7",
     "update-electron-app": "^3.0.0"

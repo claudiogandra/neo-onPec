@@ -2,17 +2,7 @@ const sequelize = require('../db/db');
 const { DataTypes } = require('sequelize');
 const term = require('../util/terminal');
 
-const Sync = sequelize.define('sync', {
-  id: {
-    type: DataTypes.UUID,
-    defaultValue: DataTypes.UUIDV4,
-    allowNull: false,
-    primaryKey: true,
-  },
-  dispositivo: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
+const User = sequelize.define('user', {
   usuario: {
     type: DataTypes.STRING,
     allowNull: false,
@@ -21,19 +11,19 @@ const Sync = sequelize.define('sync', {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  acao: {
-    type: DataTypes.STRING(),
+  darkmode: {
+    type: DataTypes.STRING,
     allowNull: false,
+    default: true,
   },
 },
 {
   freezeTableName: true,
-  updatedAt: false,
 });
 
-Sync.getLastCreatedAt = async () => {
+User.getLastCreatedAt = async () => {
   try {
-    const result = await Sync.findOne({
+    const result = await User.findOne({
       attributes: [[sequelize.fn('max', sequelize.col('createdAt')), 'lastCreatedAt']],
     });
 
@@ -45,4 +35,4 @@ Sync.getLastCreatedAt = async () => {
   }
 };
 
-module.exports = Sync;
+module.exports = User;

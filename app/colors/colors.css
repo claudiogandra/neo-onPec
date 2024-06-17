@@ -7,9 +7,10 @@
   --neonroncador-8o: #1a7d73d2;
   --neonroncador-4o: #1ac9b788;
   --hardneon: #00ded3;
-  --bg: #1b1d1b;
+  --bg: #202020;
   --bgel: #222222;
   --bgw: #dbdfdd;
+  --bar: #121212EE;
   --textw: #efefef;
   --textb: #222222;
   --gradient-start :#ed6ea0;
@@ -24,7 +25,7 @@
 
   input[type="text"], input[type="password"], input[type="email"], select, option {
     color: var(--textw);
-    background: #121212;
+    background: var(--bgel);
   }
 
   label {

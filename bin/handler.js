@@ -23,7 +23,7 @@ const handler = () => {
   });
 
   ipcMain.handle('nav', async (event, page) => {
-    BrowserWindow.getFocusedWindow().loadFile(`../app/${page}/${page}.ejs`);
+    BrowserWindow.getFocusedWindow().loadFile(`./app/${page}/${page}.ejs`);
   });
 
   ipcMain.handle('gadoPesagem:list', async (event, brinco) => {

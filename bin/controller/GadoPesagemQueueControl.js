@@ -15,8 +15,11 @@
  * @property {string} fase - A fase do brinco.
  */
 
-const GadoPesagemQueued = require("../model/GadoPesagemQueueModel");
 const term = require("../util/terminal");
+const GadoPesagemQueued = require("../model/GadoPesagemQueueModel");
+const StreamData = require("../util/stream");
+
+const API_URL = `http://on.roncador.com.br:${(process.env.ONPEC == 'DEV') ? '5115' : '7117'}`;
 
 /**
  * Busca os dados pendentes de sincronizacao
@@ -25,18 +28,46 @@ const term = require("../util/terminal");
  * @throws {Error} - Lanca um erro se ocorrer algum problema durante a operacao.
  */
 const GadoPesagemQueuedControl = {
-  async get() {
+  async queue() {
     try {
-      const queuedData = await GadoPesagemQueued.findAll({
+      const result = await GadoPesagemQueued.findAll({
         order: [['updatedAt', 'ASC']],
       });
 
-      term("Pendentes: ", queuedData);
-      return queuedData;
+      term("Pendentes: ", result);
+      return result;
       
     } catch (error) {
       term("Pendentes ERROR: ", error);
       throw new Error(error, '\nErro ao buscar os dados:\n');
+    }
+  },
+
+  async upload(dataUpload) {
+    term('Preparando Upload de GadoPesagem');
+
+    try {
+      const response = await fetch(`${API_URL}/api/gadopesagem/`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+        body: JSON.stringify(dataUpload)
+      });
+
+      if (!response.body) {
+        throw new Error('ReadableStream não disponível');
+      }
+
+      // Processa a resposta do stream
+      const data = await StreamData.read(response.body.getReader());
+
+      return data;
+
+    } catch (error) {
+      term(error); // Criar método de arquivo de erros 'logDBerrors'
+      return false;
     }
   },
 

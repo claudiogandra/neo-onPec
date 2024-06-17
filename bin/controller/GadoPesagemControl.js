@@ -4,6 +4,7 @@ const renderProcess = require("../api/render");
 const GadoPesagem = require("../model/GadoPesagemModel");
 const StreamData = require("../util/stream");
 const sequelize = require("../db/db");
+
 const API_URL = `http://on.roncador.com.br:${(process.env.ONPEC == 'DEV') ? '5115' : '7117'}`;
 
 const GadoPesagemControl = {
@@ -17,36 +18,25 @@ const GadoPesagemControl = {
     }
   },
 
-  async findOne(brinco) {
+  async countAllToday() {
     try {
-      return await GadoPesagem.findOne({ where: { brinco } });
+      return await GadoPesagem.count({
+        where: {
+          data: {
+            [Op.gte]: new Date(),
+          },
+        },
+      });
 
     } catch (error) {
       term(error); // Criar método de arquivo de erros 'logDBerrors'
-      return false;
+      throw new Error('GADO PESAGEM - Erro ao buscar os dados: ' + error.message);
     }
   },
 
-  async upload(dataUpload) {
+  async findOne(brinco) {
     try {
-      const response = await fetch(`${API_URL}/api/gadopesagem/upload`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
-        },
-        body: JSON.stringify(dataUpload)
-      });
-
-      if (!response.body) {
-        throw new Error('ReadableStream não disponível');
-      }
-
-      // Processa a resposta do stream
-      const data = await StreamData.read(response.body.getReader());
-
-      term('Enviando dados de GadoPesagem');
-      return data;
+      return await GadoPesagem.findOne({ where: { brinco } });
 
     } catch (error) {
       term(error); // Criar método de arquivo de erros 'logDBerrors'
@@ -74,6 +64,10 @@ const GadoPesagemControl = {
       const data = await StreamData.read(response.body.getReader());
   
       term('Baixando dados de GadoPesagem');
+
+      // Inserir novo registro de sincronizacao na tabela Sync
+      
+
       return data;
   
     } catch (error) {
@@ -86,12 +80,23 @@ const GadoPesagemControl = {
     try {
       let transaction = await sequelize.transaction();
       let count = 0;
-      const u = data.upsert ? data.upsert.length : 0;
-      const d = data.destroy ? data.destroy.length : 0;
 
-      if (u > 0) {
+      const up = (data.upsert).length ? (data.upsert).length : 0
+      const del = (data.destroy).length ? (data.destroy).length : 0
+      const total = up + del;
+
+      renderProcess(
+        window,
+        proc,
+        {
+          step: `Passo ${step}`,
+          msg: `Sincronizados: ${count} | Total: ${total}`
+        }
+      );
+
+      if (up > 0) {
         for (const item of data.upsert) {
-          const result = await GadoPesagem.findOne({
+          /* result = await GadoPesagem.findOne({
             where: { brinco: item.brinco, data: `${item.data}` }
           });
 
@@ -103,7 +108,7 @@ const GadoPesagemControl = {
               },
               transaction,
             })
-            : await GadoPesagem.upsert(item, {
+            : */ await GadoPesagem.upsert(item, {
               where: { 
                 brinco: item.brinco,
                 data: item.data
@@ -113,22 +118,49 @@ const GadoPesagemControl = {
 
           count++;
 
-          if (count % 250 === 0) {
+          if (count % 1000 === 0 || count === total) {
+            await transaction.commit(); // Faz commit da transacao atual a cada X iteracoes
+            transaction = await sequelize.transaction(); // Inicia uma nova transacao
+            
+            renderProcess(
+              window,
+              proc,
+              {
+                msg: `Sincronizados: ${count} | Total: ${total}`
+              }
+            );
+          }
+        }
+      }
+
+      if (del > 0) {
+        for (const item of data.destroy) {
+          await GadoPesagem.destroy({
+            where: {
+              id: item.id,
+              brinco: item.brinco,
+              data: item.data
+            },
+            transaction,
+          });
+    
+          count++;
+          if (count % 1000 === 0 || count === total) {
             await transaction.commit(); // Faz commit da transacao atual a cada X iteracoes
             transaction = await sequelize.transaction(); // Inicia uma nova transacao
           }
-
-          await renderProcess(
+          
+          renderProcess(
             window,
             proc,
             {
-              step: step,
-              message: `Sincronizando > Gado Pesagem: ${count} de ${u + d}`
+              msg: `Sincronizados: ${count} | Total: ${total}`
             }
           );
         }
       }
-      return;
+
+      return true;
 
     } catch (error) {
       term(error); // Criar método de arquivo de erros 'logDBerrors'
