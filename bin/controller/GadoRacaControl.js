@@ -1,7 +1,7 @@
 require('dotenv').config();
 const term = require("../util/terminal");
 const renderProcess = require("../api/render");
-const GadoLote = require('../model/GadoLoteModel');
+const GadoRaca = require('../model/GadoRacaModel');
 const StreamData = require('../util/stream');
 const sequelize = require("../db/db");
 const userData = require('../util/userData');
@@ -10,21 +10,21 @@ const API_URL = (process.env.ONPEC == 'LOCAL')
 ? 'http://localhost:5115' : `http://on.roncador.com.br:${(process.env.ONPEC == 'DEV') ? '5115' : '7117'}`;
 
 /**
- * Controller responsável manipular dados de 'Gado Lote'.
+ * Controller responsável manipular dados de 'Gado Raca'.
  *
- * @param {string} lote - O número do lote (até 20 caracteres).
- * @param {number} unidade - O número da unidade.
- * @param {string} descricao - A descrição do lote (até 255 caracteres).
+ * @param {string} sigla - A sigla da fase (até 3 caracteres).
+ * @param {number} raca - O nome da fase (até 30 caracteres).
+ * @param {string} descricao - A descrição do pasto (até 255 caracteres).
  *
- * @returns {Promise<Object>} - Retorna um objeto com o status da operação e os dados do GadoLote.
+ * @returns {Promise<Object>} - Retorna um objeto com o status da operação e os dados do GadoRaca.
  * @throws {Error} - Lança um erro se ocorrer algum problema durante a operação.
  */
 
-const GadoLoteControl = {
+const GadoRacaControl = {
   
   async get() {
     try {
-      const response = await GadoLote.findAll();
+      const response = await GadoRaca.findAll();
       term(response);
       return response;
       
@@ -39,11 +39,11 @@ const GadoLoteControl = {
    *
    * @returns {Promise<object>} - Retorna um objeto com os resultados da busca se a operação for bem-sucedida, ou false em outros casos.
    * @throws {Error} - Lança um erro se ocorrer algum problema durante a operação.
-   * @property {Array} response.data - Retorna um Array com dados atualizados de Gado Lote.
+   * @property {Array} response.data - Retorna um Array com dados atualizados de Gado Raca.
    */
   async push() {
     try {
-      const response = await fetch(`${API_URL}/api/gadolote/push`, {
+      const response = await fetch(`${API_URL}/api/gadoraca/push`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -58,7 +58,7 @@ const GadoLoteControl = {
 
       const data = await StreamData.read(response.body.getReader());
 
-      term('Baixando dados de Gado Lote', data);
+      term('Baixando dados de Raça', data);
       return data;
 
     } catch (error) {
@@ -74,23 +74,23 @@ const GadoLoteControl = {
     try {
       transaction = await sequelize.transaction();
 
-      await GadoLote.sync({ freezeTableName: true });
+      await GadoRaca.sync({ freezeTableName: true });
         
       renderProcess(
         window,
         proc,
         {
-          step: `Passo ${step}\n\nTabela Gado Lote`,
+          step: `Passo ${step}\n\nTabela Gado Raça`,
           msg: `Sincronizados: ${count} de ${data.length}`
         }
       );
 
       for (const item of data) {
         //console.log(item);
-        await GadoLote.upsert(item, {
+        await GadoRaca.upsert(item, {
           transaction,
           fields: [
-            'lote', 'unidade', 'descricao', 'createdAt',
+            'sigla', 'raca', 'descricao', 'createdAt',
           ]
         });
   
@@ -117,4 +117,4 @@ const GadoLoteControl = {
   },
 }
 
-module.exports = GadoLoteControl;
+module.exports = GadoRacaControl;

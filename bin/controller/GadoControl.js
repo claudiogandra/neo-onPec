@@ -1,7 +1,7 @@
 require('dotenv').config();
 const term = require("../util/terminal");
 const renderProcess = require("../api/render");
-const GadoLote = require('../model/GadoLoteModel');
+const Gado = require('../model/GadoModel');
 const StreamData = require('../util/stream');
 const sequelize = require("../db/db");
 const userData = require('../util/userData');
@@ -10,21 +10,25 @@ const API_URL = (process.env.ONPEC == 'LOCAL')
 ? 'http://localhost:5115' : `http://on.roncador.com.br:${(process.env.ONPEC == 'DEV') ? '5115' : '7117'}`;
 
 /**
- * Controller responsável manipular dados de 'Gado Lote'.
+ * Controller responsável manipular dados de 'Gado'.
  *
- * @param {string} lote - O número do lote (até 20 caracteres).
- * @param {number} unidade - O número da unidade.
- * @param {string} descricao - A descrição do lote (até 255 caracteres).
+ * @param {string} brinco - O número de identificação do gado (entre 4 e 20 caracteres).
+ * @param {string} sexo - O sexo do gado (até 1 caractere).
+ * @param {string} raca - A raça do gado (até 20 caracteres).
+ * @param {string} lote - O lote do gado (até 20 caracteres).
+ * @param {string} pasto - O pasto onde o gado está (até 20 caracteres).
+ * @param {number} peso - O peso do gado (entre 0.0 e 2000.0).
+ * @param {string} fase - A fase do gado (até 1 caractere).
  *
- * @returns {Promise<Object>} - Retorna um objeto com o status da operação e os dados do GadoLote.
+ * @returns {Promise<Object>} - Retorna um objeto com o status da operação e os dados do Gado.
  * @throws {Error} - Lança um erro se ocorrer algum problema durante a operação.
  */
 
-const GadoLoteControl = {
+const GadoControl = {
   
   async get() {
     try {
-      const response = await GadoLote.findAll();
+      const response = await Gado.findAll();
       term(response);
       return response;
       
@@ -39,11 +43,11 @@ const GadoLoteControl = {
    *
    * @returns {Promise<object>} - Retorna um objeto com os resultados da busca se a operação for bem-sucedida, ou false em outros casos.
    * @throws {Error} - Lança um erro se ocorrer algum problema durante a operação.
-   * @property {Array} response.data - Retorna um Array com dados atualizados de Gado Lote.
+   * @property {Array} response.data - Retorna um Array com dados atualizados de Gado.
    */
   async push() {
     try {
-      const response = await fetch(`${API_URL}/api/gadolote/push`, {
+      const response = await fetch(`${API_URL}/api/gado/push`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -58,7 +62,7 @@ const GadoLoteControl = {
 
       const data = await StreamData.read(response.body.getReader());
 
-      term('Baixando dados de Gado Lote', data);
+      term('Baixando dados de Gado', data);
       return data;
 
     } catch (error) {
@@ -70,39 +74,42 @@ const GadoLoteControl = {
   async import(data, window, proc, step) {
     let transaction;
     let count = 0;
-    
+
     try {
       transaction = await sequelize.transaction();
-
-      await GadoLote.sync({ freezeTableName: true });
         
       renderProcess(
         window,
         proc,
         {
-          step: `Passo ${step}\n\nTabela Gado Lote`,
+          step: `Passo ${step}\n\nTabela Gado`,
           msg: `Sincronizados: ${count} de ${data.length}`
         }
       );
 
       for (const item of data) {
         //console.log(item);
-        await GadoLote.upsert(item, {
+        await Gado.upsert(item, {
           transaction,
           fields: [
-            'lote', 'unidade', 'descricao', 'createdAt',
+            'brinco', 'sexo', 'raca', 'lote', 'pasto', 'peso', 'fase',
           ]
         });
   
         count++;
-        
-        renderProcess(
-          window,
-          proc,
-          {
-            msg: `Sincronizados: ${count} de ${data.length}`
-          }
-        );
+
+        if (count % 1000 === 0 || count === data.length) {
+          await transaction.commit(); // Faz commit da transacao atual a cada X iteracoes
+          transaction = await sequelize.transaction(); // Inicia uma nova transacao
+          
+          renderProcess(
+            window,
+            proc,
+            {
+              msg: `Sincronizados: ${count} | Total: ${data.length}`
+            }
+          );
+        }
       }
 
       await transaction.commit();
@@ -117,4 +124,4 @@ const GadoLoteControl = {
   },
 }
 
-module.exports = GadoLoteControl;
+module.exports = GadoControl;

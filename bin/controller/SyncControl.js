@@ -5,13 +5,14 @@ const Sync = require('../model/SyncModel');
 const StreamData = require('../util/stream');
 const sequelize = require('../db/db');
 
-const API_URL = `http://on.roncador.com.br:${(process.env.ONPEC == 'DEV') ? '5115' : '7117'}`;
+const API_URL = (process.env.ONPEC == 'LOCAL')
+? 'http://localhost:5115' : `http://on.roncador.com.br:${(process.env.ONPEC == 'DEV') ? '5115' : '7117'}`;
 
 const SyncControl = {
   async mostRecentDate() {
     try {
       const result = await Sync.getLastCreatedAt();
-      return (result !== null) ? result : false;
+      return (result !== null) ? result : await this.push();
 
     } catch (error) {
       term(error); // Criar método de arquivo de erros 'logDBerrors'
@@ -48,9 +49,11 @@ const SyncControl = {
   },
 
   async import(data) {
+    let transaction;
+    let count = 0;
+    
     try {
-      let transaction = await sequelize.transaction();
-      let count = 0;
+      transaction = await sequelize.transaction();
 
       for (const item of data) {
         await Sync.upsert(item, transaction);
