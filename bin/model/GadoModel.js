@@ -2,23 +2,38 @@ const sequelize = require('../db/db');
 const { DataTypes } = require('sequelize');
 const term = require('../util/terminal');
 
-const GadoFase = sequelize.define('gado_fase', {
-  codigo: {
-    type: DataTypes.STRING(1),
+const Gado = sequelize.define('gado', {
+  brinco: {
+    type: DataTypes.STRING(20),
     primaryKey: true,
     autoIncrement: false,
   },
-  fase: {
+  sexo: {
+    type: DataTypes.STRING(1),
+    allowNull: false,
+  },
+  raca: {
     type: DataTypes.STRING(20),
     allowNull: false,
   },
-  descricao: {
-    type: DataTypes.STRING(255),
+  lote: {
+    type: DataTypes.STRING(20),
+    allowNull: false,
+  },
+  pasto: {
+    type: DataTypes.STRING(20),
+    allowNull: true,
+  },
+  peso: {
+    type: DataTypes.DOUBLE,
+    allowNull: false,
+  },
+  fase: {
+    type: DataTypes.STRING(1),
     allowNull: true,
   },
 }, {
   freezeTableName: true,
-  updatedAt: false,
 });
 
 /**
@@ -27,10 +42,10 @@ const GadoFase = sequelize.define('gado_fase', {
  * @returns {Promise<void>} - Promessa vazia que indica o término da operação.
  * @throws {Error} - Lança um erro se ocorrer algum problema durante a operação.
  */
-GadoFase.resetTable = async () => {
+Gado.resetTable = async () => {
   try {
     // Excluir todos os registros da tabela
-    await GadoFase.destroy({ truncate: true });
+    await Gado.destroy({ truncate: true });
     return true;
     
   } catch (error) {
@@ -39,4 +54,4 @@ GadoFase.resetTable = async () => {
   }
 };
 
-module.exports = GadoFase;
+module.exports = Gado;

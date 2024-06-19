@@ -4,16 +4,16 @@ const term = require('../util/terminal');
 
 const GadoPasto = sequelize.define('gado_pasto', {
   pasto: {
-    type: DataTypes.STRING,
+    type: DataTypes.STRING(20),
     primaryKey: true,
-    allowNull: false,
+    autoIncrement: false,
   },
   unidade: {
     type: DataTypes.INTEGER,
     allowNull: false,
   },
   descricao: {
-    type: DataTypes.STRING,
+    type: DataTypes.STRING(255),
     allowNull: true,
   },
 }, {

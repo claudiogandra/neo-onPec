@@ -4,7 +4,7 @@ const term = require('../util/terminal');
 
 const GadoLote = sequelize.define('gado_lote', {
   lote: {
-    type: DataTypes.STRING,
+    type: DataTypes.STRING(20),
     primaryKey: true,
     allowNull: false,
   },
@@ -13,12 +13,11 @@ const GadoLote = sequelize.define('gado_lote', {
     allowNull: false,
   },
   descricao: {
-    type: DataTypes.STRING,
+    type: DataTypes.STRING(255),
     allowNull: true,
   },
 }, {
   freezeTableName: true,
-  createdAt: false,
   updatedAt: false,
 });
 

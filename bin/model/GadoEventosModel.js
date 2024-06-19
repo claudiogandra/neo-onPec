@@ -2,7 +2,7 @@ const sequelize = require('../db/db');
 const { DataTypes, Op } = require('sequelize');
 const term = require('../util/terminal');
 
-const GadoPesagem = sequelize.define('gado_pesagem', {
+const GadoEventos = sequelize.define('gado_eventos', {
   id: {
     type: DataTypes.UUID,
     defaultValue: DataTypes.UUIDV4,
@@ -41,9 +41,9 @@ const GadoPesagem = sequelize.define('gado_pesagem', {
   freezeTableName: true,
 });
 
-GadoPesagem.getLastData = async (paramDate, logging) => {
+GadoEventos.getLastData = async (paramDate, logging) => {
   try {
-    return await GadoPesagem.findAll({
+    return await GadoEventos.findAll({
       where: {
         data: {
           [Op.gte]: paramDate,
@@ -53,8 +53,8 @@ GadoPesagem.getLastData = async (paramDate, logging) => {
     
   } catch (error) {
     term(error); // Criar método de arquivo de erros 'logDBerrors'
-    throw new Error('GADO PESAGEM - Erro ao buscar os dados: ' + error.message);
+    throw new Error('GADO EVENTOS - Erro ao buscar os dados: ' + error.message);
   }
 };
 
-module.exports = GadoPesagem;
+module.exports = GadoEventos;

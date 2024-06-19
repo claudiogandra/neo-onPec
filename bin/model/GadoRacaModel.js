@@ -4,21 +4,20 @@ const term = require('../util/terminal');
 
 const GadoRaca = sequelize.define('gado_raca', {
   sigla: {
-    type: DataTypes.STRING,
+    type: DataTypes.STRING(3),
     primaryKey: true,
     allowNull: false,
   },
   raca: {
-    type: DataTypes.STRING,
-    allowNull: false,
+    type: DataTypes.STRING(30),
+    autoIncrement: false,
   },
   descricao: {
-    type: DataTypes.STRING,
+    type: DataTypes.STRING(255),
     allowNull: true,
   },
 }, {
   freezeTableName: true,
-  createdAt: false,
   updatedAt: false,
 });
 

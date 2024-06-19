@@ -10,19 +10,19 @@ const Sync = sequelize.define('sync', {
     primaryKey: true,
   },
   dispositivo: {
-    type: DataTypes.STRING,
+    type: DataTypes.STRING(20),
     allowNull: false,
   },
   usuario: {
-    type: DataTypes.STRING,
+    type: DataTypes.STRING(40),
     allowNull: false,
   },
   modulo: {
-    type: DataTypes.STRING,
+    type: DataTypes.STRING(255),
     allowNull: false,
   },
-  acao: {
-    type: DataTypes.STRING(),
+  detalhes: {
+    type: DataTypes.STRING(255),
     allowNull: false,
   },
 },
