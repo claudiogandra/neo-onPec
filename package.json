@@ -10,6 +10,7 @@
   "scripts": {
     "start": "electron-forge start",
     "dev": "ONPEC=DEV electron-forge start",
+    "dev-local": "ONPEC=LOCAL electron-forge start",
     "rebuild": "electron-rebuild",
     "package": "electron-forge package",
     "make": "electron-forge make",
