@@ -153,3 +153,13 @@ window.addEventListener('beforeunload', function(event) {
 
   return;
 });
+
+window.modal.update((event, obj) => {
+  const modal = document.querySelector('#modal-progress');
+  const section = modal.querySelector('section');
+  const titleModal = section.querySelector('h4');
+  const msgModal = section.querySelector('p');
+  
+  if ('step' in obj) titleModal.innerText = obj.step;
+  if ('msg' in obj) msgModal.innerText = obj.msg;
+});
