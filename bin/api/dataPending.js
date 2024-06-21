@@ -1,4 +1,4 @@
-const GadoPesagemControl = require("../controller/GadoPesagemControl");
+const GadoEventosControl = require("../controller/GadoEventosControl");
 const SyncControl = require("../controller/SyncControl");
 const term = require("../util/terminal");
 
@@ -10,7 +10,7 @@ const DataPending = {
       term(`MOST RECENT: ${mostRecentDate}`);
 
       // Baixar dados de pesagem a partir da ultima data de sincronizacao
-      const response = await GadoPesagemControl.push(mostRecentDate);
+      const response = await GadoEventosControl.push(mostRecentDate);
 
       term(`IMPORT: ${response}`);
       return response;
