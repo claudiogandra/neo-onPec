@@ -10,12 +10,22 @@ contextBridge.exposeInMainWorld('versions', {
   electron: () => process.versions.electron,
 });
 
+contextBridge.exposeInMainWorld('modal', {
+  update: (callback) => ipcRenderer.on('modal', (callback))
+});
+
 contextBridge.exposeInMainWorld('darkMode', {
   toggle: () => ipcRenderer.invoke('dark-mode:toggle'),
 });
 
 contextBridge.exposeInMainWorld('data', {
   sync: async () => await ipcRenderer.invoke('sync'),
+  fastInfo: () => ipcRenderer.invoke('main-banner:fast-info'),
+  blockItems: () => ipcRenderer.invoke('main-banner:block-items'),
+  list: async (specs) => await ipcRenderer.invoke('data:list', specs),
+  update: async (specs) => await ipcRenderer.invoke('data:update', specs),
+  delete: async (specs) => await ipcRenderer.invoke('data:delete', specs),
+  count: async (specs) => await ipcRenderer.invoke('data:count', specs)
 });
 
 contextBridge.exposeInMainWorld('gadoPesagem', {
