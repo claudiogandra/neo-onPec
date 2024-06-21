@@ -1,6 +1,6 @@
 const information = document.querySelector('#versions');
 information.innerText = `
-  onPec: ${window.versions.onPec()}
+  onPec (v${window.versions.onPec()})
   Chrome (v${window.versions.chrome()})
   Node.js (v${window.versions.node()})
   Electron (v${window.versions.electron()})
