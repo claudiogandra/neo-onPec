@@ -74,7 +74,7 @@ const init = async (window, version = false) => {
 
     window.setProgressBar(0.4);
     // 4 - Tratar sincronizacao de tabelas
-    await sync(tables, window, step++);
+    await sync(window, 'introLog', step++);
 
     await sleep(500);
 
