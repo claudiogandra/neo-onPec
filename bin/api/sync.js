@@ -3,24 +3,53 @@ const Table = require('../db/table');
 const BKP = require('../db/bkp');
 const term = require('../util/terminal');
 const SyncControl = require('../controller/SyncControl');
-const userData = require('../util/userData');
 
-const sync = async (tables = false, window = false, step) => {
+const sync = async (window = false, proc, step) => {
   try {
     // 1 - Faz BKP do estado atual do DB local
     await BKP.db();
     term('Backup local realizado');
 
+    const tables = await Table.config();
+
     if (window === false) return;
     if (tables === false) tables = await Table.config();
 
     // 2 - Somente tabelas que podem ter fila
-    const queues = tables.filter(t => t.queue);
+    const dimensions = tables
+      .filter(t => t.exec)
+      .sort((a, b) => a.priority - b.priority);
+
+    const queues = tables
+      .filter(t => t.queue)
+      .sort((a, b) => a.priority - b.priority);
+
     window.setProgressBar(0.6);
 
     // 3 - Verifica data da ultima sincronizacao
     const mostRecentDate = await SyncControl.mostRecentDate();
-    term(`MOST RECENT: ${mostRecentDate}`);
+    term(`MOST RECENT: ${mostRecentDate.result}`);
+
+    // 6 - Sincroniza demais tabelas que nao possuem queue
+    for (const table of dimensions) {
+      if (table.exec === true) {
+        const Control = require(`../controller/${table.model}Control`);
+        const resultData = await Control.push();
+
+        if (resultData.result === true) {
+
+          const startTime = performance.now();
+          const resultImport = await Control.import(
+            resultData.data,
+            window,
+            proc,
+            step
+          );
+
+          term(`${resultImport} | ${(performance.now() - startTime) / 1000} segundos`);
+        }
+      }
+    }
   
     // 3 - Verifica se existe alguma tabela com queue
     if (queues.length > 0) for (const queue of queues) {
@@ -31,7 +60,7 @@ const sync = async (tables = false, window = false, step) => {
       if (dataUpload.length > 0) await QueueControl.upload(dataUpload);
       
       // 4 - Método que verifica dados pendentes para baixar
-      const resultData = await Control.push(mostRecentDate);
+      const resultData = await Control.push(mostRecentDate.result);
   
       if (resultData.result === true) {
         
@@ -40,7 +69,7 @@ const sync = async (tables = false, window = false, step) => {
         const resultImport = await Control.import(
           resultData.data,
           window,
-          'introLog',
+          proc,
           step
         )
   
@@ -48,30 +77,10 @@ const sync = async (tables = false, window = false, step) => {
       }
     }
 
-    // 6 - Sincroniza demais tabelas que nao possuem queue
-    /* for (const table of tables) {
-      if (table.queue === false) {
-        const Control = require(`../controller/${table.model}Control`);
-        const resultData = await Control.push();
-
-        if (resultData.result === true) {
-
-          const startTime = performance.now();
-          const resultImport = await Control.import(
-            resultData.data,
-            window,
-            'introLog',
-            step
-          );
-
-          term(`${resultImport} | ${(performance.now() - startTime) / 1000} segundos`);
-        }
-      }
-    } */
-
     return;
     
   } catch (error) {
+    term('SYNC', error);
     throw new Error(error);
   }
 }
