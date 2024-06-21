@@ -19,33 +19,33 @@ section#gado-pesagem {
   margin: 5px 10px;
 }
 
-#form-gado-pesagem > label {
+#form-gado-pesagem label {
   width: calc(80px + 1%);
   font-size: calc(12px + (4 * (0.3vw / 10)));
   font-weight: 600;
 }
 
-#form-gado-pesagem > input, #form-gado-pesagem > select {
+#form-gado-pesagem input, #form-gado-pesagem select {
   width: calc(99% - 80px);
   margin: 5px 0;
 }
 
-#form-gado-pesagem > input:focus, #form-gado-pesagem > select:focus {
+#form-gado-pesagem input:focus, #form-gado-pesagem select:focus {
   border-color: var(--neonroncador);
 }
 
-#form-gado-pesagem > button {
+#form-gado-pesagem button {
   width: calc(33%);
   font-size: calc(12px + (4 * (0.3vw / 10) / 3));
   margin-top: 20px;
 }
 
-#form-gado-pesagem > button.hide {
+#form-gado-pesagem button.hide {
   opacity: 0;
   pointer-events: none;
 }
 
-#form-gado-pesagem > #brinco {
+#form-gado-pesagem #brinco {
   padding: 14px 10px;
   font-size: 32px;
   text-align: center;

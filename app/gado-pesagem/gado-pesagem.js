@@ -19,3 +19,8 @@ brinco.addEventListener('keydown', async (event) => {
     brinco.blur();
   }
 });
+
+document.addEventListener('DOMContentLoaded', async () => {
+  const topbarTitle = document.querySelector('#topbar-title');
+  topbarTitle.textContent = document.title.split(' | ')[0];
+});
