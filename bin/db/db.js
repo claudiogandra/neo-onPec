@@ -2,7 +2,7 @@ require('dotenv').config();
 const Sequelize = require('sequelize');
 const path = require('path');
 
-const db = (process.env.ONPEC == 'DEV')
+const db = (process.env.ONPEC == 'DEV' || process.env.ONPEC == 'LOCAL')
   ? path.join(__dirname, '../data/local.test.db')
   : path.join(__dirname, '../data/local.db');
 
