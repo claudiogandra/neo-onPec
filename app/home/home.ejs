@@ -12,7 +12,7 @@
         content="default-src 'self'; script-src 'self'"
       />
       <link rel="stylesheet" type="text/css" href="./home.css">
-    <title>onPec</title>
+    <title>Início | ON PEC</title>
   </head>
   <body>
     <%- include('../header/header.ejs') %>
@@ -20,7 +20,24 @@
     <main>
       <%- include('../topbar/topbar.ejs') %>
       
-      <%- include('../main-banner/main-banner.ejs') %>
+      <section id="main-banner">
+        <div class="main__crossing-container" id="main__banner-container"></div>
+      
+        <!-- DISCOVER -->
+        <div class="main__discover">
+      
+          <div class="main__discover-heading-container" id="fast-info">
+          </div>
+      
+          <ul class="main__discover-places" id="main__block-list">
+            <!-- <div class="main__discover-right">
+              <svg xfill="none" viewBox="0 0 24 24" stroke="currentColormlns="http://www.w3.org/2000/svg" ">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+              </svg>
+            </div> -->
+          </ul>
+        </div>
+      </section>      
   
       <!-- <p>
         Recursos da aplicação: Node.js <span id="node-version"></span>,

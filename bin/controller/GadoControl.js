@@ -25,15 +25,27 @@ const API_URL = (process.env.ONPEC == 'LOCAL')
  */
 
 const GadoControl = {
-  
-  async get() {
+  /**
+   * @param {string} filters - Um objeto onde propriedades são as colunas da tabela.
+  */
+  async count(filters = {}) {
     try {
-      const response = await Gado.findAll();
-      term(response);
+      const response = await Gado.count({ where: filters });
       return response;
       
     } catch (error) {
-      console.error(error);
+      term(error);
+      return false;
+    }
+  },
+  
+  async findAll() {
+    try {
+      const response = await Gado.findAll();
+      return response;
+      
+    } catch (error) {
+      term(error);
       return false;
     }
   },
@@ -82,7 +94,7 @@ const GadoControl = {
         window,
         proc,
         {
-          step: `Passo ${step}\n\nTabela Gado`,
+          step: `Passo ${step}\n\n- Tabela Gado`,
           msg: `Sincronizados: ${count} de ${data.length}`
         }
       );
