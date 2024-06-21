@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const term = require('../util/terminal');
 
-const db = (process.env.ONPEC == 'DEV')
+const db = (process.env.ONPEC == 'DEV' || process.env.ONPEC == 'LOCAL')
   ? path.join(__dirname, '../data/local.test.db')
   : path.join(__dirname, '../data/local.db');
 
@@ -24,7 +24,7 @@ const BKP = {
 
       await fs.promises.copyFile(db, novoCaminho);
 
-      if (process.env.ONPEC == 'DEV') console.log(`Backup criado com sucesso: ${novoCaminho}`);
+      term(`Backup criado com sucesso: ${novoCaminho}`);
       return;
 
     } catch (error) {
@@ -32,7 +32,7 @@ const BKP = {
       try {
         await fs.promises.writeFile(db, '');
 
-        if (process.env.ONPEC == 'DEV') console.log('DB criado'); // Criar método de arquivo de erros 'logDBerrors'
+        term('DB criado'); // Criar método de arquivo de erros 'logDBerrors'
         return;
 
       } catch (error) {
@@ -59,7 +59,7 @@ const BKP = {
     try {
       await fs.promises.appendFile(arquivo, dataToAppend);
 
-      if (process.env.ONPEC == 'DEV') console.log('BKP DATA - Dados adicionados ao arquivo:', arquivo);
+      term('BKP DATA - Dados adicionados ao arquivo:', arquivo);
       return;
 
     } catch (error) {

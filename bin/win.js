@@ -20,7 +20,7 @@ const Win = {
         nodeIntegration: true,
         contextIsolation: true,
         enableRemoteModule: false,
-        devTools: (process.env.ONPEC == 'DEV') ? true : false,
+        devTools: (process.env.ONPEC == 'DEV' || process.env.ONPEC == 'LOCAL') ? true : false,
       }
     });
 
@@ -48,7 +48,7 @@ const Win = {
         nodeIntegration: true,
         contextIsolation: true,
         enableRemoteModule: false,
-        devTools: (process.env.ONPEC == 'DEV') ? true : false,
+        devTools: (process.env.ONPEC == 'DEV' || process.env.ONPEC == 'LOCAL') ? true : false,
       }
     });
 

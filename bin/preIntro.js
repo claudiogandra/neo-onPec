@@ -6,7 +6,7 @@ contextBridge.exposeInMainWorld('api', {
 });
 
 contextBridge.exposeInMainWorld('versions', {
-  onPec: () => (process.env.ONPEC == 'DEV') 
+  onPec: () => (process.env.ONPEC == 'DEV' || process.env.ONPEC == 'DEV-LOCAL') 
     ? `${process.env.APP_VERSION} - DEV` 
     : `${process.env.APP_VERSION} - PROD` ,
   node: () => process.versions.node,
