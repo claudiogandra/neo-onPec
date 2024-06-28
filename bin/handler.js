@@ -17,7 +17,10 @@ const handler = () => {
 
   ipcMain.handle('sync', async () => {
     try {
-      return await sync(BrowserWindow.getFocusedWindow(), 'modal', 1);
+      const window = BrowserWindow.getFocusedWindow();
+      const result = await sync(window, 'modal', 1)
+      window.setProgressBar(1.0);
+      return result;
 
     } catch (error) {
       console.log(error);
@@ -29,18 +32,35 @@ const handler = () => {
     BrowserWindow.getFocusedWindow().loadFile(`./app/${page}/${page}.ejs`);
   });
 
-  ipcMain.handle('main-banner:fast-info', async () => {
+  ipcMain.handle('fast-info', async () => {
     return await FastInfoControl.mainBanner();
   });
 
-  ipcMain.handle('data:count', async (specs) => {
+  ipcMain.handle('data:list', async (event, specs) => {
     const { table = false, filters = false } = specs;
+    if (table === false) return false;
+
     const Control = require(`./controller/${table}Control`);
 
-    return await Control.count(filters);
+    return await Control.list(
+      (filters !== false || Object.prototype.toString.call(filters) !== '[object Object]')
+      ? filters : {}
+    );
+  });
+
+  ipcMain.handle('data:count', async (event, specs) => {
+    const { table = false, filters = false } = specs;
+    if (table === false) return false;
+
+    const Control = require(`./controller/${table}Control`);
+
+    return await Control.count(
+      (filters !== false || Object.prototype.toString.call(filters) !== '[object Object]')
+      ? filters : {}
+    );
   });
   
-  ipcMain.handle('gadoPesagem:list', async (event, brinco) => {
+  ipcMain.handle('gado-eventos:list', async (event, brinco) => {
     return await GadoEventosControl.findOne(brinco);
   });
 

@@ -20,16 +20,16 @@ contextBridge.exposeInMainWorld('darkMode', {
 
 contextBridge.exposeInMainWorld('data', {
   sync: async () => await ipcRenderer.invoke('sync'),
-  fastInfo: () => ipcRenderer.invoke('main-banner:fast-info'),
   blockItems: () => ipcRenderer.invoke('main-banner:block-items'),
+  fastInfo: () => ipcRenderer.invoke('fast-info'),
   list: async (specs) => await ipcRenderer.invoke('data:list', specs),
   update: async (specs) => await ipcRenderer.invoke('data:update', specs),
   delete: async (specs) => await ipcRenderer.invoke('data:delete', specs),
   count: async (specs) => await ipcRenderer.invoke('data:count', specs)
 });
 
-contextBridge.exposeInMainWorld('gadoPesagem', {
-  list: async (brinco) => await ipcRenderer.invoke('gadoPesagem:list', brinco),
+contextBridge.exposeInMainWorld('gadoEventos', {
+  list: async (brinco) => await ipcRenderer.invoke('gado-eventos:list', brinco),
 });
 
 contextBridge.exposeInMainWorld('nav', {
