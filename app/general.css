@@ -9,6 +9,8 @@
   outline: inherit;
   text-decoration: none;
   list-style: none;
+  -webkit-border-horizontal-spacing: 0;
+  -webkit-border-vertical-spacing: 0;
 }
 
 html {

@@ -19,6 +19,8 @@
     
     <main>
       <%- include('../topbar/topbar.ejs') %>
+
+      <section id="fast-info"></section>
       
       <section id="gado-pesagem">
         <div id="form-gado-pesagem">
@@ -26,29 +28,36 @@
           <input id="brinco" type="text" name="brinco" />
 
           <label class="lbl-gado-pesagem" for="lote">Lote</label>
-          <select id="lote" name="lote" title="lote">
-            <option value="0" disabled selected>Não alterar</option>
+          <select id="lote" name="lote" title="lote" disabled>
+            <option value="0" selected>Manter o atual</option>
           </select>
 
           <label class="lbl-gado-pesagem" for="pasto">Pasto</label>
-          <select id="pasto" name="pasto" title="pasto">
-            <option value="0" disabled selected>Não alterar</option>
+          <select id="pasto" name="pasto" title="pasto" disabled>
+            <option value="0" selected>Manter o atual</option>
           </select>
 
           <label class="lbl-gado-pesagem" for="fase">Fase</label>
-          <select id="fase" name="fase" title="fase">
-            <option value="0" disabled selected>Não alterar</option>
+          <select id="fase" name="fase" title="fase" disabled>
+            <option value="0" selected>Manter o atual</option>
           </select>
           
           <label class="lbl-gado-pesagem" for="novo-peso">Novo Peso</label>
-          <input id="novo-peso" type="text" name="novo-peso" />
+          <input id="novo-peso" type="text" name="novo-peso" disabled />
 
           <button id="btn-remove" class="hide">Remover</button>
           <button id="btn-cancel" class="hide">Cancelar</button>
           <button id="btn-pesagem" class="hide">+ Pesagem</button>
         </div>
-        <div id="tbl-gado-pesagem">
+        <div id="gado-eventos">
           <!-- PESAGENS DO BRINCO SELECIONADO -->
+           <table>
+            <thead>
+              <tr>
+              </tr>
+            </thead>
+            <tbody></tbody>
+           </table>
         </div>
       </section>
     </main>

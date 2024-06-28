@@ -16,8 +16,8 @@ html {
 
 .ss-heading {
   font-weight: 400;
-  text-transform: uppercase;
   font-size: calc(10px + 0.3vw);
+  text-transform: uppercase;
   letter-spacing: 2px;
 }
 
@@ -101,16 +101,17 @@ html {
 }
 
 .main__discover {
-  width: 88%;
+  width: 92%;
   min-width: 350px;
   border-radius: 8px;
   padding: 100px 60px 20px;
   margin-left: auto;
-  transform: translate(30px, -30px);
+  transform: translate(30px, -40px);
 }
 
 .main__discover-heading-container {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
 }
 
@@ -121,11 +122,11 @@ html {
 
 .main__discover-places {
   display: flex;
-  width: 75vw;
   gap: calc(12px + 1vw);
   flex-wrap: wrap;
-  justify-content: center;
   align-items: stretch;
+  justify-content: center;
+  width: 75vw;
   padding: 20px 0 2%;
   margin: 0;
   list-style: none;

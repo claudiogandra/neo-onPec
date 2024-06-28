@@ -1,5 +1,23 @@
 @import url("../general.css");
 
+section#fast-info {
+  display: flex;
+  gap: 2vw;
+  align-items: center;
+  padding: 10px;
+}
+
+section#fast-info > h2 {
+  flex-grow: 2;
+  padding: 10px;
+  background: #121212EE;
+  font-weight: 400;
+  font-size: calc(10px + 0.3vw);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-align: center;
+}
+
 section#gado-pesagem {
   display: flex;
   flex-wrap: wrap;
@@ -14,8 +32,8 @@ section#gado-pesagem {
   flex-grow: 1;
   justify-content: center;
   align-items: center;
-  width: calc(40% - 10px);
-  min-width: 250px;
+  width: calc(50% - 10px);
+  min-width: 390px;
   margin: 5px 10px;
 }
 
@@ -47,32 +65,48 @@ section#gado-pesagem {
 
 #form-gado-pesagem #brinco {
   padding: 14px 10px;
-  font-size: 32px;
+  font-size: 26px;
   text-align: center;
 }
 
-#tbl-gado-pesagem {
+#gado-eventos {
   display: flex;
   flex-direction: column;
   flex-grow: 1;
-  justify-content: center;
-  align-items: center;
-  width: calc(60% - 30px);
+  width: calc(50% - 30px);
   min-width: 300px;
-  min-height: 400px;
+  height: 420px;
   padding: 15px;
   margin: 5px 10px;
   border-radius: 8px;
+  text-transform: uppercase;
+  text-align: center;
+  overflow-x: auto;
+}
+
+#gado-eventos th, #gado-eventos td {
+  padding: 8px 4px;
+  border: 0;
+  border-bottom: 1px solid #555555;
+  text-wrap: nowrap;
+}
+
+#gado-eventos > table > tbody > tr:hover {
+  background: var(--roncador-4o);
+}
+
+#gado-eventos tbody tr:nth-child(odd) {
+  background-color: var(--bg); /* Cor para linhas ímpares */
 }
 
 @media (prefers-color-scheme: dark) {
-  #tbl-gado-pesagem {
+  #gado-eventos {
     background: #121212EE;
   }
 }
 
 @media (prefers-color-scheme: light) {
-  #tbl-gado-pesagem {
+  #gado-eventos {
     background: #EEEEEE;
   }
 }

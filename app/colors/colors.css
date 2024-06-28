@@ -15,6 +15,7 @@
   --textb: #222222;
   --gradient-start :#ed6ea0;
   --gradient-end :#ec8c69;
+  --marker-line: #b8a018;
 }
 
 @media (prefers-color-scheme: dark) {
