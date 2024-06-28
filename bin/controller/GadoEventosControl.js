@@ -4,6 +4,7 @@ const renderProcess = require("../api/render");
 const GadoEventos = require("../model/GadoEventosModel");
 const StreamData = require("../util/stream");
 const sequelize = require("../db/db");
+const { Op } = require("sequelize");
 
 const API_URL = (process.env.ONPEC == 'LOCAL')
 ? 'http://localhost:5115' : `http://on.roncador.com.br:${(process.env.ONPEC == 'DEV') ? '5115' : '7117'}`;
@@ -20,9 +21,20 @@ const GadoEventosControl = {
     }
   },
   
-  async findAll() {
+  async list(filters = {}) {
     try {
-      return await GadoEventos.findAll({ order: [ ['data', 'DESC'] ] });
+      if (filters.hasOwnProperty('peso')) {
+        if (filters.peso === true) {
+          filters.peso = { [Op.not]: null };
+        } else {
+          delete filters.peso;
+        }
+      }
+
+      return await GadoEventos.findAll({
+        where: filters,
+        order: [ ['data', 'DESC'] ]
+      });
       
     } catch (error) {
       if (process.env.ONPEC == 'DEV') console.log(error); // Criar método de arquivo de erros 'logDBerrors'

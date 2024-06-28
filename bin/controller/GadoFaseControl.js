@@ -22,14 +22,13 @@ const API_URL = (process.env.ONPEC == 'LOCAL')
 
 const GadoFaseControl = {
   
-  async get() {
+  async list(filters = {}) {
     try {
       const response = await GadoFase.findAll();
-      term(response);
       return response;
       
     } catch (error) {
-      console.error(error);
+      term(error);
       return false;
     }
   },
@@ -80,7 +79,7 @@ const GadoFaseControl = {
         window,
         proc,
         {
-          step: `Passo ${step}\n\nTabela Gado Fase`,
+          step: `Passo ${step}\n\n- Tabela Gado Fase`,
           msg: `Sincronizados: ${count} de ${data.length}`
         }
       );

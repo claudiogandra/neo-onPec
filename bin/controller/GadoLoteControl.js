@@ -22,14 +22,13 @@ const API_URL = (process.env.ONPEC == 'LOCAL')
 
 const GadoLoteControl = {
   
-  async get() {
+  async list(filters = {}) {
     try {
       const response = await GadoLote.findAll();
-      term(response);
       return response;
       
     } catch (error) {
-      console.error(error);
+      term(error);
       return false;
     }
   },
@@ -80,7 +79,7 @@ const GadoLoteControl = {
         window,
         proc,
         {
-          step: `Passo ${step}\n\nTabela Gado Lote`,
+          step: `Passo ${step}\n\n- Tabela Gado Lote`,
           msg: `Sincronizados: ${count} de ${data.length}`
         }
       );

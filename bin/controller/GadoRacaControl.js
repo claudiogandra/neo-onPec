@@ -22,14 +22,13 @@ const API_URL = (process.env.ONPEC == 'LOCAL')
 
 const GadoRacaControl = {
   
-  async get() {
+  async list(filters = {}) {
     try {
       const response = await GadoRaca.findAll();
-      term(response);
       return response;
       
     } catch (error) {
-      console.error(error);
+      term(error);
       return false;
     }
   },
@@ -80,7 +79,7 @@ const GadoRacaControl = {
         window,
         proc,
         {
-          step: `Passo ${step}\n\nTabela Gado Raça`,
+          step: `Passo ${step}\n\n- Tabela Gado Raça`,
           msg: `Sincronizados: ${count} de ${data.length}`
         }
       );

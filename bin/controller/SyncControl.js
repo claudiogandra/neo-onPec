@@ -6,7 +6,7 @@ const StreamData = require('../util/stream');
 const sequelize = require('../db/db');
 
 const API_URL = (process.env.ONPEC == 'LOCAL')
-? 'http://localhost:5115' : `http://on.roncador.com.br:${(process.env.ONPEC == 'DEV') ? '5115' : '7117'}`;
+  ? 'http://localhost:5115' : `http://on.roncador.com.br:${(process.env.ONPEC == 'DEV') ? '5115' : '7117'}`;
 
 const SyncControl = {
   async mostRecentDate() {

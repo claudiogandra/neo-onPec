@@ -12,17 +12,6 @@ const FastInfoControl = {
     try {
       const result = [
         {
-          title: 'Total Cabeças',
-          description: await Gado.count({
-            where: {
-              fase: {
-                [Op.not]: null,
-                [Op.ne]: 'A'
-              }
-            }
-          })
-        },
-        {
           title: 'Pesagens Hoje',
           description: await GadoEventos.count({
             where: {
@@ -40,6 +29,17 @@ const FastInfoControl = {
               fase: 'A',
               data: new Date(new Date().setHours(0, 0, 0, 0))
             },
+          })
+        },
+        {
+          title: 'Total Cabeças',
+          description: await Gado.count({
+            where: {
+              fase: {
+                [Op.not]: null,
+                [Op.ne]: 'A'
+              }
+            }
           })
         },
       ]

@@ -17,7 +17,8 @@ const init = async (window, version = false) => {
   );
 
   try {
-    const userNetwork = await getUnidade();
+    const userNetwork = (process.env.ONPEC == 'LOCAL')
+      ? { unidade: null } : await getUnidade();
 
     if (userNetwork.unidade === false) {
 

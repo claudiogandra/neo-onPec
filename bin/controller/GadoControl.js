@@ -39,7 +39,7 @@ const GadoControl = {
     }
   },
   
-  async findAll() {
+  async list(filters = {}) {
     try {
       const response = await Gado.findAll();
       return response;

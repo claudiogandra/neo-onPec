@@ -2,7 +2,6 @@ const fs = require('fs');
 const path = require('node:path');
 const sequelize = require('./db');
 const term = require('../util/terminal');
-const { mostRecentDate } = require('../controller/SyncControl');
 
 // Verificar a tabela local
 const Table = {
