@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   const blockItems = await window.data.blockItems(); // Lista de blocos
 
   // Resumo de dados - Renderizacao
-  const headerMain = document.getElementById('main__banner-container');
+  const headerMain = document.getElementById('main__crossing-container');
 
   headerMain.innerHTML = `
     <div class="main__crossing-image">
@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   const fastInfo = document.getElementById('fast-info');
   
-  infoItems.forEach((info) => {
+  for (const info of infoItems) {
     const el = document.createElement('h2');
     el.classList.add('main__discover-heading');
     el.classList.add('ss-heading');
@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     el.innerHTML = `${info.title}: <strong>${info.description}</strong>`;
 
     fastInfo.appendChild(el);
-  });
+  };
 
   // Lista de blocos - Renderizacao
   const blockList = document.getElementById('main__block-list');
