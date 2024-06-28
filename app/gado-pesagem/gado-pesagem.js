@@ -31,11 +31,13 @@ const updateFastInfo = async () => {
   const infoItems = await window.data.fastInfo(); // Resumo de dados
 
   const fastInfo = document.getElementById('fast-info');
-  fastInfo.innerHTML = '';
+  fastInfo.replaceChildren = '';
   
   for (const info of infoItems) {
     const el = document.createElement('h2');
-    el.innerHTML = `${info.title}: <strong>${info.description}</strong>`;
+    
+    el.insertAdjacentHTML('beforeend', 
+      `${info.title}: <strong>${info.description}</strong>`);
 
     fastInfo.appendChild(el);
   };
@@ -133,8 +135,9 @@ const listGadoEventos = async () => {
             const dataParts = listItem.dataValues[props].split('-');
             td.textContent = `${dataParts[2]}/${dataParts[1]}/${dataParts[0]}`;
             
-          } else if (props === 'fase' && !listItem.dataValues[props]) {
+          } else if (!listItem.dataValues[props]) {
             td.textContent = '-';
+
           } else {
             td.textContent = listItem.dataValues[props];
           }
@@ -161,6 +164,7 @@ const listGadoEventos = async () => {
     tbody.replaceChildren('');
     brinco.focus();
   }
+
   return;
 }
 
@@ -177,12 +181,15 @@ brinco.addEventListener('input', async (event) => {
     brinco.value = brinco.value.slice(0, 20);
   }
 
-  if (!regex.test(brinco.value)) {
+  if (!regex.test(brinco.value) && brinco.value.length > 1) {
     brinco.value = brinco.value.slice(0, -1);
+    brinco.style.border = '1px solid var(--alert)';
 
   } else {
-    brinco.value = brinco.value.toUpperCase(); // Converte o valor para maiúsculas
+    brinco.style.border = '';
   }
+  
+  brinco.value = brinco.value.toUpperCase(); // Converte o valor para maiúsculas
 });
 
 brinco.addEventListener('keydown', async (event) => {

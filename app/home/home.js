@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   // Resumo de dados - Renderizacao
   const headerMain = document.getElementById('main__crossing-container');
 
-  headerMain.innerHTML = `
+  headerMain.insertAdjacentHTML('beforeend', `
     <div class="main__crossing-image">
     </div>
     <div class="main__crossing-current">
@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         Fazenda Mantiqueira
       </h3>
     </div>
-  `;
+  `);
 
   const fastInfo = document.getElementById('fast-info');
   
@@ -29,7 +29,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     el.classList.add('main__discover-heading');
     el.classList.add('ss-heading');
 
-    el.innerHTML = `${info.title}: <strong>${info.description}</strong>`;
+    el.insertAdjacentHTML('beforeend', 
+      `${info.title}: <strong>${info.description}</strong>`);
 
     fastInfo.appendChild(el);
   };
@@ -41,7 +42,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const el = document.createElement('li');
     el.classList.add('main__discover-place');
 
-    el.innerHTML = `
+    el.insertAdjacentHTML('beforeend', `
       <div class="main__discover__more">
         <div class="main__discover__more-svg svg-block-icon ${item.blocksColorClass}">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 23 22">
@@ -69,7 +70,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       </div>
       <h4 class="main__discover-place-heading">${item.heading}</h4>
       <p class="main__discover-place-sub">${item.subheading}</p>
-    `;
+    `);
 
     blockList.appendChild(el);
   });

@@ -26,6 +26,7 @@ const GadoEventosControl = {
       if (filters.hasOwnProperty('peso')) {
         if (filters.peso === true) {
           filters.peso = { [Op.not]: null };
+          
         } else {
           delete filters.peso;
         }
