@@ -10,7 +10,7 @@ section#fast-info {
 section#fast-info > h2 {
   flex-grow: 2;
   padding: 10px;
-  background: #121212EE;
+  background: var(--bar);
   font-weight: 400;
   font-size: calc(10px + 0.3vw);
   text-transform: uppercase;
@@ -32,19 +32,21 @@ section#gado-pesagem {
   flex-grow: 1;
   justify-content: center;
   align-items: center;
-  width: calc(50% - 10px);
+  width: calc(50%);
   min-width: 390px;
-  margin: 5px 10px;
+  padding: 5px 10px;
 }
 
 #form-gado-pesagem label {
   width: calc(80px + 1%);
+  padding: 0 10px 0 16px;
   font-size: calc(12px + (4 * (0.3vw / 10)));
   font-weight: 600;
 }
 
 #form-gado-pesagem input, #form-gado-pesagem select {
   width: calc(99% - 80px);
+  height: 37px;
   margin: 5px 0;
 }
 
@@ -52,13 +54,36 @@ section#gado-pesagem {
   border-color: var(--neonroncador);
 }
 
+#form-gado-pesagem > input:first-of-type {
+  height: 65px;
+}
+
+#form-gado-pesagem #gado-descricao {
+  display: none;
+  gap: 10px;
+  align-items: center;
+  width: 100%;
+  padding-left: calc(80px + 1%);
+  transition: 0.3s ease;
+}
+
+#form-gado-pesagem #gado-descricao select {
+  flex: 1 1 190px;
+}
+
 #form-gado-pesagem button {
+  flex-grow: 1;
   width: calc(33%);
   font-size: calc(12px + (4 * (0.3vw / 10) / 3));
   margin-top: 20px;
 }
 
 #form-gado-pesagem button.hide {
+  flex: inherit;
+  width: 0;
+  height: 0;
+  padding: 0;
+  margin: 0;
   opacity: 0;
   pointer-events: none;
 }
@@ -67,6 +92,14 @@ section#gado-pesagem {
   padding: 14px 10px;
   font-size: 26px;
   text-align: center;
+}
+
+#form-gado-pesagem #submit-gado-pesagem {
+  width: 100%;
+  flex-direction: row-reverse;
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
 }
 
 #gado-eventos {
@@ -91,22 +124,38 @@ section#gado-pesagem {
   text-wrap: nowrap;
 }
 
-#gado-eventos > table > tbody > tr:hover {
-  background: var(--roncador-4o);
-}
-
-#gado-eventos tbody tr:nth-child(odd) {
-  background-color: var(--bg); /* Cor para linhas ímpares */
-}
-
 @media (prefers-color-scheme: dark) {
   #gado-eventos {
-    background: #121212EE;
+    background: var(--bar);
+  }
+
+  #gado-eventos tbody tr:nth-child(odd) {
+    background-color: var(--bg); /* Cor para linhas ímpares */
+  }
+  
+  #gado-eventos > table > tbody > tr:hover {
+    background: var(--roncador-4o);
+  }
+
+  #gado-eventos th, #gado-eventos td {
+    color: var(--textw);
   }
 }
 
 @media (prefers-color-scheme: light) {
   #gado-eventos {
     background: #EEEEEE;
+  }
+
+  #gado-eventos tbody tr:nth-child(odd) {
+    background-color: var(--bgw); /* Cor para linhas ímpares */
+  }
+  
+  #gado-eventos > table > tbody > tr:hover {
+    background: var(--roncador-4o);
+  }
+
+  #gado-eventos th, #gado-eventos td {
+    color: var(--textb);
   }
 }

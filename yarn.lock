@@ -1521,10 +1521,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"electron-log@npm:^5.1.1":
-  version: 5.1.2
-  resolution: "electron-log@npm:5.1.2"
-  checksum: 10/34a9e69f0ea5e3ee401d2fdd09af89a1ccd1d4fdb15d613420ee33ed60bb27c81026bb860be0c03f0801265a0ce73b51bb8df091756dba71dbdf043fa9bb4cd2
+"electron-log@npm:5.1.7":
+  version: 5.1.7
+  resolution: "electron-log@npm:5.1.7"
+  checksum: 10/3b5e338e1c4a8b0267b7d77ed7456fbe4047b29d533db381da39c156ad5c239fb91eadc2d322467f6b96e3e0adb5678d14a124ace643966e3878786dd64a3c92
   languageName: node
   linkType: hard
 
@@ -1557,16 +1557,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"electron@npm:^30.0.1":
-  version: 30.0.1
-  resolution: "electron@npm:30.0.1"
+"electron@npm:30.4.0":
+  version: 30.4.0
+  resolution: "electron@npm:30.4.0"
   dependencies:
     "@electron/get": "npm:^2.0.0"
     "@types/node": "npm:^20.9.0"
     extract-zip: "npm:^2.0.1"
   bin:
     electron: cli.js
-  checksum: 10/097ed1757c0e81884ad2b3565af70eede432eb993f8cfeb2b26978843554cc31113184f5fc51ecf48ce76412e876adb9356dafc1495db2476dd052e504df8c69
+  checksum: 10/a79a43e7b074b1cc028140fadebe7fb10d27d388bc20210086533738b19a763e85cc91ffb5584e85e3ef3caa35f7293dd12363aebff2d8a28a0eac24998f4908
   languageName: node
   linkType: hard
 
@@ -3185,8 +3185,8 @@ __metadata:
     "@electron/rebuild": "npm:^3.6.0"
     dotenv: "npm:^16.4.5"
     ejs-electron: "npm:^3.0.0"
-    electron: "npm:^30.0.1"
-    electron-log: "npm:^5.1.1"
+    electron: "npm:30.4.0"
+    electron-log: "npm:5.1.7"
     electron-progressbar: "npm:^2.2.1"
     electron-wix-msi: "npm:^5.1.3"
     network: "npm:^0.7.0"

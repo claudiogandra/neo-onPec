@@ -33,7 +33,7 @@ const GadoEventos = sequelize.define('gado_eventos', {
 }, {
   indexes: [
     {
-      name: 'un_brinco_data',
+      name: 'u_brinco_data',
       unique: true,
       fields: ['brinco', 'data'],
     }

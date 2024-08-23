@@ -41,7 +41,7 @@ const GadoControl = {
   
   async list(filters = {}) {
     try {
-      const response = await Gado.findAll();
+      const response = await Gado.findAll({ where: filters });
       return response;
       
     } catch (error) {

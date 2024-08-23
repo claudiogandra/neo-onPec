@@ -9,14 +9,14 @@
   --hardneon: #00ded3;
   --bg: #202020;
   --bgel: #222222;
-  --bgw: #dbdfdd;
+  --bgw: #e7e7e7;
   --bar: #121212EE;
   --textw: #efefef;
   --textb: #222222;
-  --alert: #af0f0f;
   --gradient-start :#ed6ea0;
   --gradient-end :#ec8c69;
   --marker-line: #b8a018;
+  --alert: #af0f0f;
 }
 
 @media (prefers-color-scheme: dark) {

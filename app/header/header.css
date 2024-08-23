@@ -133,6 +133,8 @@ li:hover {
 }
 
 #modal-progress label {
+  display: inline-block;
+  width: 100%;
   font-weight: 600;
 }
 
@@ -142,6 +144,15 @@ li:hover {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+#modal-progress section > button {
+  padding: 6px 20%;
+  margin-top: 20px;
+}
+
+#modal-progress section > svg {
+  margin-top: 20px;
 }
 
 @media (prefers-color-scheme: dark) {

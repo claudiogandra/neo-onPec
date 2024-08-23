@@ -23,39 +23,51 @@
       <section id="fast-info"></section>
       
       <section id="gado-pesagem">
-        <div id="form-gado-pesagem">
+        <form id="form-gado-pesagem">
           <label class="lbl-gado-pesagem" for="brinco">Brinco</label>
           <input id="brinco" type="text" name="brinco" />
 
+          <div id="gado-descricao">
+            <select id="raca" name="raca" title="raca">
+              <option value="0" selected disabled>Selecionar Raça</option>
+            </select>
+  
+            <select id="sexo" name="sexo" title="sexo">
+              <option value="0" selected disabled>Selecionar Sexo</option>
+            </select>
+          </div>
+
           <label class="lbl-gado-pesagem" for="lote">Lote</label>
           <select id="lote" name="lote" title="lote" disabled>
-            <option value="0" selected>Manter o atual</option>
+            <option value="0" selected disabled>Selecionar. . .</option>
+            <option value="00">Sem alterações</option>
           </select>
 
           <label class="lbl-gado-pesagem" for="pasto">Pasto</label>
           <select id="pasto" name="pasto" title="pasto" disabled>
-            <option value="0" selected>Manter o atual</option>
+            <option value="0" selected disabled>Selecionar. . .</option>
+            <option value="00">Sem alterações</option>
           </select>
 
           <label class="lbl-gado-pesagem" for="fase">Fase</label>
           <select id="fase" name="fase" title="fase" disabled>
-            <option value="0" selected>Manter o atual</option>
+            <option value="0" selected disabled>Selecionar. . .</option>
+            <option value="00">Sem alterações</option>
           </select>
           
-          <label class="lbl-gado-pesagem" for="novo-peso">Novo Peso</label>
+          <label class="lbl-gado-pesagem" for="novo-peso">Peso</label>
           <input id="novo-peso" type="text" name="novo-peso" disabled />
 
-          <button id="btn-remove" class="hide">Remover</button>
-          <button id="btn-cancel" class="hide">Cancelar</button>
-          <button id="btn-pesagem" class="hide">+ Pesagem</button>
-        </div>
+          <div id="submit-gado-pesagem">
+            <button id="btn-add" class="hide" disabled>Adicionar Peso</button>
+            <button id="btn-clean" class="hide" disabled>Limpar Campos</button>
+            <button id="btn-remove" class="hide" disabled>Remover Pesagem</button>
+          </div>
+        </form>
+
         <div id="gado-eventos">
-          <!-- PESAGENS DO BRINCO SELECIONADO -->
            <table>
-            <thead>
-              <tr>
-              </tr>
-            </thead>
+            <thead></thead>
             <tbody></tbody>
            </table>
         </div>
@@ -63,5 +75,6 @@
     </main>
   </body>
   <script src="../general.js"></script>
+  <script src="../util/gado.js"></script>
   <script src="./gado-pesagem.js"></script>
 </html>
