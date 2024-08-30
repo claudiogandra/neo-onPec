@@ -149,6 +149,26 @@ const cleanFields = async () => {
   return;
 }
 
+const toogleOptionNoChanges = async (selectId, enable) => {
+  const selectElement = document.getElementById(selectId);
+  if (selectElement) {
+    try {
+      const option = Array.from(selectElement.options).find(opt => opt.value === '00');
+      if (option) {
+        if (enable) {
+          option.removeAttribute('disabled');
+        } else {
+          option.setAttribute('disabled', 'disabled');
+        }
+      }
+      return;
+
+    } catch (err) {
+      return;
+    }
+  }
+}
+
 // CRIA OU ATUALIZA UM REGISTRO DE PESAGEM
 const upsertBrincoData = async () => {
   const activeElem = form.querySelectorAll('input:not([disabled]), select:not([disabled])');
@@ -190,6 +210,9 @@ const getBrincoData = async () => {
   MANIPULATE.brinco = brincoValue;
 
   await disableFields();
+  await toogleOptionNoChanges('lote', true);
+  await toogleOptionNoChanges('pasto', true);
+  await toogleOptionNoChanges('fase', true);
 
   table.querySelector('thead').replaceChildren('');
   table.querySelector('tbody').replaceChildren('');
@@ -202,6 +225,8 @@ const getBrincoData = async () => {
     brinco.focus();
     MANIPULATE.acao = null;
     FOCUS = brinco;
+
+    await scanFields()
     return;
   };
 
@@ -213,6 +238,9 @@ const getBrincoData = async () => {
   if (gado === false) {
     await enableGadoDesc();
     await enableFields(0);
+    await toogleOptionNoChanges('lote', false);
+    await toogleOptionNoChanges('pasto', false);
+    await toogleOptionNoChanges('fase', false);
 
     btnAdd.textContent = 'Criar Brinco';
     
@@ -221,6 +249,8 @@ const getBrincoData = async () => {
     raca.focus();
     MANIPULATE.acao = 'create';
     FOCUS = raca;
+
+    await scanFields()
     return;
   }
 
@@ -231,11 +261,15 @@ const getBrincoData = async () => {
   // SE NAO EXISTIREM EVENTOS, ENTRA NO MODO DE INSERT
   if (gadoEventos === false) {
     await enableFields(0);
+    await toogleOptionNoChanges('lote', false);
+    await toogleOptionNoChanges('pasto', false);
+    await toogleOptionNoChanges('fase', false);
+
     lote.focus();
     MANIPULATE.acao = 'insert';
-    lote.options[1].disabled = true;
-    pasto.options[1].disabled = true;
-    fase.options[1].disabled = true;
+
+    await scanFields()
+
     return;
   }
 
@@ -347,9 +381,12 @@ const getBrincoData = async () => {
       true
     )
 
+    await scanFields()
+
     return;
   }
 
+  await scanFields()
   lote.focus();
   return;
 }
@@ -375,7 +412,7 @@ const inputPeso = async () => {
 }
 
 const inputRules = async (element, chars, regex) => {
-  const elementValue = element.value.toUpperCase();
+  let elementValue = element.value.toUpperCase();
 
   if (elementValue.length > chars) {
     elementValue = elementValue.slice(0, chars);
@@ -393,19 +430,39 @@ const inputRules = async (element, chars, regex) => {
   return;
 };
 
+const selectRules = async (event, target) => {
+  if ((event.keyCode === 13 || event.keyCode === 9) && !event.shiftKey) {
+    event.preventDefault();
+    switch (target.id) {
+      case 'raca':
+        sexo.focus();
+        break;
+
+      case'sexo':
+        lote.focus();
+        break;
+
+      case 'lote':
+        pasto.focus();
+        break;
+
+      case 'pasto':
+        fase.focus();
+        break;
+
+      case 'fase':
+        novoPeso.focus();
+        break;
+    }
+  }
+}
+
 const submitRules = async (event, target) => {
-  if (event.keyCode === 13 || event.keyCode === 9) {
+  if ((event.keyCode === 13 || event.keyCode === 9) && !event.shiftKey) {
     event.preventDefault();
     target.blur();
   }
 }
-
-novoPeso.addEventListener('keydown', async (event) => {
-  if (event.keyCode === 13) {
-    event.preventDefault();
-    btnAdd.focus();
-  }
-});
 
 btnAdd.addEventListener('click', async (event) => {
   event.preventDefault();
@@ -417,9 +474,9 @@ btnClean.addEventListener('click', async (event) => {
   await cleanFields();
 });
 
-const scanFields = async (activeElements = form.querySelectorAll('input:not([disabled]), select:not([disabled]), button:not([disabled])')) => {
-  console.log(activeElements);
-  
+const scanFields = async (activeElements = form.querySelectorAll('input:not([disabled]), select:not([disabled]), button:not([disabled])')) => {  
+  console.log('scanFields', Date.now());
+
   for (const element of activeElements) {
     switch (element.id) {
       case 'brinco':
@@ -429,17 +486,13 @@ const scanFields = async (activeElements = form.querySelectorAll('input:not([dis
         break;
 
       case 'novo-peso':
-        element.addEventListener('blur', async () => await scanFields(activeElements));
         element.addEventListener('input', async () => await inputRules(novoPeso, 6, /^[0-9]{1,3}([.])?([0-9]{1,2})?$/));
         element.addEventListener('keydown', async (event) => await submitRules(event, novoPeso));
         break;
-      
-      case 'raca':
 
       default:
-        if (element.tagName === 'INPUT') {
-          element.addEventListener('blur', async () => await scanFields(activeElements));
-          element.addEventListener('keydown', async (event) => await submitRules(event, element));
+        if (element.tagName === 'SELECT') {
+          element.addEventListener('keydown', async (event) => await selectRules(event, element));
         }
         break;
     }
