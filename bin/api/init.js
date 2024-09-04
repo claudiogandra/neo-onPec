@@ -89,6 +89,8 @@ const init = async (window, version = false) => {
     );
 
     window.setProgressBar(1.0);
+
+    window.setProgressBar(5);
     return;
 
   } catch (error) {

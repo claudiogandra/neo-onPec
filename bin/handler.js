@@ -19,7 +19,7 @@ const handler = () => {
     try {
       const window = BrowserWindow.getFocusedWindow();
       const result = await sync(window, 'modal', 1)
-      window.setProgressBar(1.0);
+      window.setProgressBar(5);
       return result;
 
     } catch (error) {
