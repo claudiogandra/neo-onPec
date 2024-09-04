@@ -21,6 +21,7 @@ header {
 
 header.hide {
   left: -120px;
+  animation: hideAnimation 0.3s forwards;
 }
 
 header > #close-button {
@@ -123,12 +124,12 @@ li:hover {
   padding: 20px;
   text-align: center;
   border-radius: 8px;
-  transition: opacity 0.6s ease;
+  transition: 0.5s ease-in-out;
   z-index: 901;
 }
 
 #modal-overlay.hide, #modal-progress.hide {
-  opacity: 0;
+  animation: hideAnimation 0.5s forwards;
   pointer-events: none;
 }
 

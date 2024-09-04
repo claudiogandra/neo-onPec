@@ -78,6 +78,10 @@ section#gado-pesagem {
   margin-top: 20px;
 }
 
+#form-gado-pesagem input:focus, #form-gado-pesagem select:focus, #form-gado-pesagem button:focus {
+  box-shadow: 0px 0px 8px var(--textw);
+}
+
 #form-gado-pesagem button.hide {
   flex: inherit;
   width: 0;

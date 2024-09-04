@@ -147,3 +147,14 @@ button.btn2 > svg {
     ;transform: rotate(360deg);
   }
 }
+
+@keyframes hideAnimation {
+  0% {
+    opacity: 1;
+    visibility: visible;
+  }
+  100% {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
