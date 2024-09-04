@@ -16,6 +16,11 @@ const GadoPasto = sequelize.define('gado_pasto', {
     type: DataTypes.STRING(255),
     allowNull: true,
   },
+  status: {
+    type: DataTypes.STRING(255),
+    allowNull: false,
+    defaultValue: 'A'
+  },
 }, {
   freezeTableName: true,
   createdAt: false,

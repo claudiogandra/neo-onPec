@@ -89,7 +89,7 @@ const GadoPastoControl = {
         await GadoPasto.upsert(item, {
           transaction,
           fields: [
-            'pasto', 'unidade', 'descricao', 'createdAt',
+            'pasto', 'unidade', 'descricao', 'createdAt', 'status',
           ]
         });
   

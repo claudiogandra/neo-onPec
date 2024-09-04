@@ -89,7 +89,7 @@ const GadoLoteControl = {
         await GadoLote.upsert(item, {
           transaction,
           fields: [
-            'lote', 'unidade', 'descricao', 'createdAt',
+            'lote', 'unidade', 'descricao', 'createdAt', 'status',
           ]
         });
   
