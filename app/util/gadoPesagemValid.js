@@ -37,7 +37,7 @@ const validField = async (field = false) => {
       element.value === '0' ||
       (MANIPULATE.acao === 'create' && element.value === '00')
     );
-    
+
     setBorder(element, isValid);
     return isValid;
   };
@@ -60,15 +60,23 @@ const validField = async (field = false) => {
   await toogleActionBtn([btnAdd], result && elements.length > 1);
 
   if (field === false) return true;
-  
-  await selectRules(field);
 };
 
 
 const checkFields = async (event, field = false) => {
-  if ((event.keyCode === 13 || event.keyCode === 9) && !event.shiftKey) {
+  if ((event.shiftKey && event.keyCode === 13) || (event.shiftKey && event.keyCode === 9)) {
     event.preventDefault();
-    if (field !== false) field.blur();
+    if (field !== false) {
+      field.blur();
+    }
+    await selectRules(field, false);
+
+  } else if ((event.keyCode === 13) || (event.keyCode === 9)) {
+    event.preventDefault();
+    if (field !== false) {
+      field.blur();
+      await selectRules(field, true);
+    }
   }
 }
 

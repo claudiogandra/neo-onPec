@@ -25,13 +25,15 @@ const upsertBrincoData = async () => {
     fase: fase.value === '00' ? null : fase.value,
     peso: novoPeso.value,
   });
+
+  console.log(lastPesagem);
 }
 
 // CAPTURA O BRINCO DIGITADO, VALIDA, E LISTA CASO ATENDER OS REQS
 const getBrincoData = async () => {
   const brincoValue = brinco.value;
 
-  if (MANIPULATE.brinco === brincoValue) {
+  if (MANIPULATE.brinco === brincoValue || brincoValue.length === 0) {
     return null;
   };
 
@@ -109,7 +111,8 @@ const getBrincoData = async () => {
   await enableGadoDesc(gado);
 
   // MAPEIA OS DADOS RETORNADOS DO BACKEND
-  const lastPesagem = gadoEventos[0].dataValues;
+  const last = gadoEventos[0].dataValues;
+  lastPesagem = last;
   
   // CARREGA OS VALORES NA TELA
   const thead = document.querySelector('#gado-eventos table thead');
@@ -117,7 +120,7 @@ const getBrincoData = async () => {
 
   const trHead = document.createElement('tr');
 
-  for (const props in lastPesagem) {
+  for (const props in last) {
     if (props !== 'id' && props !== 'brinco' && props !== 'createdAt' && props !== 'updatedAt') {
       const thHead = document.createElement('th');
       thHead.textContent = props;
@@ -132,22 +135,22 @@ const getBrincoData = async () => {
   thead.appendChild(trHead);
 
   for (let index = 0; index < gadoEventos.length; index++) {
-    const listItem = gadoEventos[index];
+    const listItem = gadoEventos[index].dataValues;
     const row = document.createElement('tr');
   
-    for (const props in listItem.dataValues) {
+    for (const props in listItem) {
       if (props !== 'brinco' && props !== 'id' && props !== 'createdAt' && props !== 'updatedAt') {
         const td = document.createElement('td');
   
         if (props === 'data') {
-          const dataParts = listItem.dataValues[props].split('-');
+          const dataParts = listItem[props].split('-');
           td.textContent = `${dataParts[2]}/${dataParts[1]}/${dataParts[0]}`;
 
-        } else if (!listItem.dataValues[props]) {
+        } else if (!listItem[props]) {
           td.textContent = '-';
 
         } else {
-          td.textContent = listItem.dataValues[props];
+          td.textContent = listItem[props];
         }
   
         row.appendChild(td);
@@ -159,9 +162,9 @@ const getBrincoData = async () => {
     if (index + 1 < gadoEventos.length) {
       gmdValue = await gmd({
         p1: gadoEventos[index + 1].dataValues['peso'],
-        p2: listItem.dataValues['peso'],
+        p2: listItem['peso'],
         d1: new Date(gadoEventos[index + 1].dataValues['data']),
-        d2: new Date(listItem.dataValues['data'])
+        d2: new Date(listItem['data'])
       });
 
     } else {

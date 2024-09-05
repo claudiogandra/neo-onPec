@@ -24,6 +24,7 @@ const MANIPULATE = {
   acao: null,
   brinco: null,
 };
+let lastPesagem;
 let FOCUS = null;
 
 // ATUALIZA OS ITENS DO BANNER
@@ -190,29 +191,59 @@ const inputRules = async (element) => {
   }
 };
 
-const selectRules = async (target) => {switch (target.id) {
+const selectRules = async (target, next) => {
+  switch (target.id) {
     case 'raca':
-      sexo.focus();
+      if (next) {
+        sexo.focus();
+      } else {
+        brinco.focus();
+      }
       break;
 
     case'sexo':
-      lote.focus();
+      if (next) {
+        lote.focus();
+      } else {
+        raca.focus();
+      }
       break;
 
     case 'lote':
-      pasto.focus();
+      if (next) {
+        pasto.focus();
+      } else {
+        console.log(MANIPULATE.acao);
+        if (MANIPULATE.acao === 'create') {
+          sexo.focus();
+        } else {
+          brinco.focus();
+        }
+      }
       break;
 
     case 'pasto':
-      fase.focus();
+      if (next) {
+        fase.focus();
+      } else {
+        lote.focus();
+      }
       break;
 
     case 'fase':
-      novoPeso.focus();
+      if (next) {
+        novoPeso.focus();
+      } else {
+        pasto.focus();
+      }
       break;
 
     case 'novo-peso':
-      btnAdd.focus();
+      if (next) {
+        btnAdd.focus();
+      } else {
+        fase.focus();
+      }
       break;
 
     default:
