@@ -61,8 +61,6 @@ const enableGadoDesc = async (gado = false) => {
     sexo.setAttribute('disabled', '');
   }
 
-  gadoDesc.style.display = 'flex';
-
   return;
 }
 
@@ -73,18 +71,30 @@ const disableGadoDesc = async () => {
   sexo.selectedIndex = '0';
   sexo.setAttribute('disabled', '');
 
-  gadoDesc.style.display = '';
-
   return;
 }
 
 // HABILITA CAMPOS DE PESAGEM DO FORMULARIO
-const enableFields = async (index) => {
-  const fields = [ lote, pasto, fase, novoPeso ];
+const enableFields = async (brincoData) => {
+  
+  const list = [
+    [lote, brincoData.lote || 0],
+    [pasto, brincoData.pasto || 0],
+    [fase, brincoData.fase || 0],
+    novoPeso
+  ];
 
-  for (const field of fields) {
-    field.removeAttribute('disabled');
-    (field !== novoPeso) ? field.selectedIndex = index : field.value = '';
+  for (const item of list) {
+    if (Array.isArray(item)) {
+      const field = item[0];
+      const value = item[1];
+
+      field.removeAttribute('disabled');
+      field.value = value;
+
+    } else {
+      item.value = '';
+    }
   }
 
   return;
@@ -129,27 +139,6 @@ const toogleActionBtn = async (btns, enable) => {
   }
 
   return;
-}
-
-// TOOGLE DOS SELECT COM VALUE '00'
-const toogleOptionNoChanges = async (selectId, enable) => {
-  const selectElement = document.getElementById(selectId);
-  if (selectElement) {
-    try {
-      const option = Array.from(selectElement.options).find(opt => opt.value === '00');
-      if (option) {
-        if (enable) {
-          option.removeAttribute('disabled');
-        } else {
-          option.setAttribute('disabled', 'disabled');
-        }
-      }
-      return;
-
-    } catch (err) {
-      return;
-    }
-  }
 }
 
 const inputRules = async (element) => {
@@ -248,5 +237,72 @@ const selectRules = async (target, next) => {
 
     default:
       break;
+  }
+}
+
+const criarTabelaPesagem = async (eventos) => {
+  const ultimoEvento = eventos[0].dataValues;
+  // CARREGA OS VALORES NA TELA
+  const thead = document.querySelector('#gado-eventos table thead');
+  const tbody = document.querySelector('#gado-eventos table tbody');
+
+  const trHead = document.createElement('tr');
+
+  for (const props in ultimoEvento) {
+    if (props !== 'id' && props !== 'brinco' && props !== 'createdAt' && props !== 'updatedAt') {
+      const thHead = document.createElement('th');
+      thHead.textContent = props;
+      trHead.appendChild(thHead);
+    }
+  }
+    
+  const gmdTh = document.createElement('th');
+  gmdTh.textContent = 'GMD';
+  trHead.appendChild(gmdTh);
+  
+  thead.appendChild(trHead);
+
+  for (let index = 0; index < eventos.length; index++) {
+    const listItem = eventos[index].dataValues;
+    const row = document.createElement('tr');
+  
+    for (const props in listItem) {
+      if (props !== 'brinco' && props !== 'id' && props !== 'createdAt' && props !== 'updatedAt') {
+        const td = document.createElement('td');
+  
+        if (props === 'data') {
+          const dataParts = listItem[props].split('-');
+          td.textContent = `${dataParts[2]}/${dataParts[1]}/${dataParts[0]}`;
+
+        } else if (!listItem[props]) {
+          td.textContent = '-';
+
+        } else {
+          td.textContent = listItem[props];
+        }
+  
+        row.appendChild(td);
+      }
+    }
+
+    let gmdValue;
+  
+    if (index + 1 < gadoEventos.length) {
+      gmdValue = await gmd({
+        p1: gadoEventos[index + 1].dataValues['peso'],
+        p2: listItem['peso'],
+        d1: new Date(gadoEventos[index + 1].dataValues['data']),
+        d2: new Date(listItem['data'])
+      });
+
+    } else {
+      gmdValue = '-';
+    }
+
+    const gmdTd = document.createElement('td');
+    gmdTd.textContent = gmdValue;
+    row.appendChild(gmdTd);
+  
+    tbody.appendChild(row);
   }
 }

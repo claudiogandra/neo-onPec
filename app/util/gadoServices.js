@@ -64,6 +64,6 @@ const loadSelectOptions = async (list, element, value, content) => {
 
 const checkBrinco = async (param) => param && /[A-Z0-9]+$/.test(param) && param.length >= 4 && param.length <= 20;
 
-const checkPeso = async (param) => /^[0-9]{1,3}([.,][0-9]{0,2})?$/.test(param) && param > 25 && param < 1000;
+const checkPeso = async (param) => /^[0-9]{1,3}([.,][0-9]{0,2})?$/.test(param) && param > 25 && param < 2000;
 
 const gmd = async ({ p1, p2, d1, d2 }) => ((p1 - p2) / ((d1 - d2) / (1000 * 60 * 60 * 24))).toFixed(4);

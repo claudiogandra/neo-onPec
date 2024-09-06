@@ -1,3 +1,127 @@
+const getBrinco = async (element) => {
+  const brincoValue = element.value;
+  
+  if (brincoValue.length === 0) {
+    return null;
+
+  } else if (brincoValue && /[A-Z0-9]+$/.test(brincoValue) && brincoValue.length >= 4 && brincoValue.length <= 20) {
+    // CHAMA A PONTE DE CONTEXTO QUE COMUNICA COM O BACKEND
+    // VERIFICA SE O BRINCO EXISTE
+    return await listGado(brincoValue);
+
+  } else {
+    throw new Error('Brinco inválido');
+  }
+}
+
+const getBrincoEventos = async (element) => {
+  const brincoValue = element.value;
+
+  // COM O BRINCO VALIDO E CRIADO, LISTA EVENTOS DE PESAGEM
+  return await listGadoEventos(brincoValue);
+}
+
+const validateField = async (element) => {
+  console.log('GET BRINCO');
+  MANIPULATE.brinco = element.value;
+
+  switch (element.id) {
+    case 'brinco':
+      // MANIPULA CAMPOS
+      await disableFields();
+
+      // LIMPA TABELA
+      table.querySelector('thead').replaceChildren('');
+      table.querySelector('tbody').replaceChildren('');
+
+      // VALIDA BRINCO
+      const brincoData = await getBrinco(element)
+        .then(async (brincoData) => {
+          if (brincoData === false) {
+            // ########### MODO CRIACAO ###########
+            MANIPULATE.acao = 'create';
+        
+            // MANIPULA CAMPOS
+            await enableGadoDesc();
+            await enableFields(0);
+        
+            btnAdd.textContent = 'Criar Brinco';
+            
+            await toogleActionBtn([btnAdd, btnRemove], false);
+            await toogleActionBtn([btnClean], true);
+            await scanFields()
+            raca.focus();
+            FOCUS = raca;
+
+            return false;
+
+          } else if (brincoData === null) {
+            await disableGadoDesc();
+            element.focus();
+            return null;
+
+          } else {
+            return brincoData;
+          }
+        }).catch(async (err) => {
+          console.error(err);
+
+          // LIMPA MODO
+          MANIPULATE.acao = null;
+          MANIPULATE.brinco = null;
+
+          // MANIPULA CAMPOS
+          await disableGadoDesc();
+          await toogleActionBtn([btnAdd, btnClean, btnRemove], false);
+
+          // MAPEIA CAMPOS HABILITADOS
+          await scanFields();
+
+          element.focus();
+          return;
+        });
+      
+      if (brincoData) {
+        const brincoEventosData = await getBrincoEventos(element)
+        // ########### MODO INSERCAO ###########
+        MANIPULATE.acao = 'insert';
+
+        if (brincoEventosData === false) {
+          // MANIPULA CAMPOS
+          await enableFields(0);
+          
+          // MAPEIA CAMPOS HABILITADOS
+          await scanFields();
+
+        } else {
+          await enableGadoDesc(brincoData);
+          await enableFields(brincoData);
+
+          // RESERVA ULTIMO EVENTO
+          lastPesagem = brincoEventosData[0].dataValues;
+
+          // CARREGA OS VALORES NA TELA
+          await criarTabelaPesagem(brincoEventosData);
+        }
+
+        lote.focus();
+
+        return;
+
+      } else if (brincoData === null) {
+        return;
+      }
+      return;
+
+    case 'novo-peso':
+      await validateNovoPeso(element);
+      return;
+
+    default:
+      await validateDefault(element);
+      return;
+  }
+}
 
 // CRIA OU ATUALIZA UM REGISTRO DE PESAGEM
 const upsertBrincoData = async () => {
@@ -35,14 +159,11 @@ const getBrincoData = async () => {
 
   if (MANIPULATE.brinco === brincoValue || brincoValue.length === 0) {
     return null;
-  };
+  }
 
   MANIPULATE.brinco = brincoValue;
 
   await disableFields();
-  await toogleOptionNoChanges('lote', true);
-  await toogleOptionNoChanges('pasto', true);
-  await toogleOptionNoChanges('fase', true);
 
   table.querySelector('thead').replaceChildren('');
   table.querySelector('tbody').replaceChildren('');
@@ -68,9 +189,6 @@ const getBrincoData = async () => {
   if (gado === false) {
     await enableGadoDesc();
     await enableFields(0);
-    await toogleOptionNoChanges('lote', false);
-    await toogleOptionNoChanges('pasto', false);
-    await toogleOptionNoChanges('fase', false);
 
     btnAdd.textContent = 'Criar Brinco';
     
@@ -92,9 +210,6 @@ const getBrincoData = async () => {
   // SE NAO EXISTIREM EVENTOS, ENTRA NO MODO DE INSERT
   if (gadoEventos === false) {
     await enableFields(0);
-    await toogleOptionNoChanges('lote', false);
-    await toogleOptionNoChanges('pasto', false);
-    await toogleOptionNoChanges('fase', false);
 
     lote.focus();
     MANIPULATE.acao = 'insert';
