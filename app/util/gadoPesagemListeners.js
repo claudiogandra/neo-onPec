@@ -95,21 +95,21 @@ const scanFields = async () => {
   for (const element of elements) {
     switch (element.id) {
       case 'brinco':
-        element.addEventListener('blur', async () => await validField(element));
+        element.addEventListener('blur', async () => await validateField(element));
         element.addEventListener('input', async () => await inputRules(element));
-        element.addEventListener('keydown', async (event) => await checkFields(event, element));
+        //element.addEventListener('keydown', async (event) => await checkFields(event, element));
         break;
 
       case 'novo-peso':
-        element.addEventListener('blur', async () => await validField(element));
+        //element.addEventListener('blur', async () => await validField(element));
         element.addEventListener('input', async () => await inputRules(element));
-        element.addEventListener('keydown', async (event) => await checkFields(event, element));
+        //element.addEventListener('keydown', async (event) => await checkFields(event, element));
         break;
 
       default:
         if (element.tagName === 'SELECT') {
-          element.addEventListener('blur', async () => await validField(element));
-          element.addEventListener('keydown', async (event) => await checkFields(event, element));
+          //element.addEventListener('blur', async () => await validField(element));
+          //element.addEventListener('keydown', async (event) => await checkFields(event, element));
         }
         break;
     }
@@ -126,7 +126,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   await loadSelectOptions(await listSexo(), sexo, 'sigla', 'sexo');
   await loadSelectOptions(await listLote(), lote, 'lote', 'lote');
   await loadSelectOptions(await listPasto(), pasto, 'pasto', 'pasto');
-  await loadSelectOptions(await listFase(), fase, 'sigla', 'fase');
+  await loadSelectOptions(await listFase(), fase, 'codigo', 'fase');
 
   await scanFields();
 
