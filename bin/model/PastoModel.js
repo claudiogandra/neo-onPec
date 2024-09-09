@@ -2,7 +2,7 @@ const sequelize = require('../db/db');
 const { DataTypes } = require('sequelize');
 const term = require('../util/terminal');
 
-const GadoPasto = sequelize.define('gado_pasto', {
+const PastoModel = sequelize.define('pasto', {
   pasto: {
     type: DataTypes.STRING(20),
     primaryKey: true,
@@ -12,8 +12,8 @@ const GadoPasto = sequelize.define('gado_pasto', {
     type: DataTypes.INTEGER,
     allowNull: false,
   },
-  descricao: {
-    type: DataTypes.STRING(255),
+  ciclo: {
+    type: DataTypes.STRING(20),
     allowNull: true,
   },
   status: {
@@ -24,7 +24,6 @@ const GadoPasto = sequelize.define('gado_pasto', {
 }, {
   freezeTableName: true,
   createdAt: false,
-  updatedAt: false,
 });
 
 /**
@@ -33,10 +32,10 @@ const GadoPasto = sequelize.define('gado_pasto', {
  * @returns {Promise<void>} - Promessa vazia que indica o término da operação.
  * @throws {Error} - Lança um erro se ocorrer algum problema durante a operação.
  */
-GadoPasto.resetTable = async () => {
+PastoModel.resetTable = async () => {
   try {
     // Excluir todos os registros da tabela
-    await GadoPasto.destroy({ truncate: true });
+    await PastoModel.destroy({ truncate: true });
     return true;
 
   } catch (error) {
@@ -45,4 +44,4 @@ GadoPasto.resetTable = async () => {
   }
 };
 
-module.exports = GadoPasto;
+module.exports = PastoModel;

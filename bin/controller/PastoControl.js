@@ -1,7 +1,7 @@
 require('dotenv').config();
 const term = require("../util/terminal");
 const renderProcess = require("../api/render");
-const GadoPasto = require('../model/GadoPastoModel');
+const PastoModel = require('../model/PastoModel');
 const StreamData = require('../util/stream');
 const sequelize = require("../db/db");
 const userData = require('../util/userData');
@@ -10,21 +10,21 @@ const API_URL = (process.env.ONPEC == 'LOCAL')
 ? 'http://localhost:5115' : `http://on.roncador.com.br:${(process.env.ONPEC == 'DEV') ? '5115' : '7117'}`;
 
 /**
- * Controller responsável manipular dados de 'Gado Pasto'.
+ * Controller responsável manipular dados de 'Pasto'.
  *
  * @param {string} pasto - O número do pasto (até 20 caracteres).
  * @param {number} unidade - O número da unidade.
- * @param {string} descricao - A descrição do pasto (até 255 caracteres).
+ * @param {string} ciclo - O ciclo atual do pasto (até 20 caracteres).
  *
- * @returns {Promise<Object>} - Retorna um objeto com o status da operação e os dados do GadoPasto.
+ * @returns {Promise<Object>} - Retorna um objeto com o status da operação e os dados do Pasto.
  * @throws {Error} - Lança um erro se ocorrer algum problema durante a operação.
  */
 
-const GadoPastoControl = {
+const PastoControl = {
   
   async list(filters = {}) {
     try {
-      const response = await GadoPasto.findAll();
+      const response = await PastoModel.findAll();
       return response;
       
     } catch (error) {
@@ -42,7 +42,7 @@ const GadoPastoControl = {
    */
   async push() {
     try {
-      const response = await fetch(`${API_URL}/api/gadopasto/push`, {
+      const response = await fetch(`${API_URL}/api/pasto/push`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -57,7 +57,7 @@ const GadoPastoControl = {
 
       const data = await StreamData.read(response.body.getReader());
 
-      term('Baixando dados de Gado Lote', data);
+      term('Baixando dados de Gado Pasto', data);
       return data;
 
     } catch (error) {
@@ -73,7 +73,7 @@ const GadoPastoControl = {
     try {
       transaction = await sequelize.transaction();
 
-      await GadoPasto.sync({ freezeTableName: true });
+      await PastoModel.sync({ freezeTableName: true });
         
       renderProcess(
         window,
@@ -86,10 +86,10 @@ const GadoPastoControl = {
 
       for (const item of data) {
         //console.log(item);
-        await GadoPasto.upsert(item, {
+        await PastoModel.upsert(item, {
           transaction,
           fields: [
-            'pasto', 'unidade', 'descricao', 'createdAt', 'status',
+            'pasto', 'unidade', 'ciclo', 'createdAt', 'status',
           ]
         });
   
@@ -116,4 +116,4 @@ const GadoPastoControl = {
   },
 }
 
-module.exports = GadoPastoControl;
+module.exports = PastoControl;

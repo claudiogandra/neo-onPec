@@ -24,7 +24,7 @@ const sync = async (window = false, proc, step) => {
       .filter(t => t.queue)
       .sort((a, b) => a.priority - b.priority);
 
-    window.setProgressBar(0.6);
+    if (window !== false) window.setProgressBar(0.6);
 
     // 3 - Verifica data da ultima sincronizacao
     const mostRecentDate = await SyncControl.mostRecentDate();
@@ -80,6 +80,7 @@ const sync = async (window = false, proc, step) => {
     return;
     
   } catch (error) {
+    await BKP.restore();
     term('SYNC', error);
     throw new Error(error);
   }

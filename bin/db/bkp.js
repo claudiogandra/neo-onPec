@@ -65,6 +65,28 @@ const BKP = {
     } catch (error) {
       throw new Error('BKP DATA - Erro ao gravar os dados: ' + error.message);
     }
+  },
+
+  async restore() {
+    try {
+      const files = await fs.promises.readdir(path.dirname(db));
+      const backupFiles = files.filter(file => file.startsWith(path.basename(db, path.extname(db))) && file !== path.basename(db));
+
+      if (backupFiles.length === 0) {
+        return;
+      }
+
+      const latestBackup = backupFiles.sort().reverse()[0];
+      const backupPath = path.join(path.dirname(db), latestBackup);
+
+      await fs.promises.rename(backupPath, db);
+      term(`Banco de dados restaurado com sucesso: ${db}`);
+      return;
+
+    } catch (error) {
+      term(`Erro ao tentar restaurar dados: ${db}`);
+      return;
+    }
   }
 }
 

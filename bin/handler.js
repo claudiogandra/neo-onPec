@@ -39,6 +39,7 @@ const handler = () => {
   ipcMain.handle('data:list', async (event, specs) => {
     const { table = false, filters = false } = specs;
     if (table === false) return false;
+    console.log('TESTE PASTO', table);
 
     const Control = require(`./controller/${table}Control`);
 

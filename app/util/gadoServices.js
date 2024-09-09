@@ -36,7 +36,7 @@ const listLote = async () => {
 }
 
 const listPasto = async () => {
-  const listPastos = await window.data.list({ table: 'GadoPasto' });
+  const listPastos = await window.data.list({ table: 'Pasto' });
 
   return (listPastos.length > 0) ? listPastos : false;
 }

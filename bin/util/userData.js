@@ -60,7 +60,8 @@ const userData = async () => {
   return {
     dispositivo: `${os.hostname()}`,
     usuario: `${os.userInfo().username}`,
-    modulo: 'ON PEC',
+    app: 'ON PEC',
+    app: 'GERAL',
     unidade: unidade,
   };
 }

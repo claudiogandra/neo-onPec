@@ -23,17 +23,24 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   const fastInfo = document.getElementById('fast-info'); // Bloco de dados
   const infoItems = await window.data.fastInfo().then(async (data) => {
-    for (const info of data) {
-      const el = document.createElement('h2');
-      el.classList.add('main__discover-heading');
-      el.classList.add('ss-heading');
-  
-      el.insertAdjacentHTML('beforeend', 
-        `${info.title}: <strong>${info.description}</strong>`);
-  
-      fastInfo.appendChild(el);
-    };
-    return data;
+    if (Array.isArray(data)) {
+
+      console.log(data);
+      
+      for (const info of data) {
+        const el = document.createElement('h2');
+        el.classList.add('main__discover-heading');
+        el.classList.add('ss-heading');
+    
+        el.insertAdjacentHTML('beforeend', 
+          `${info.title}: <strong>${info.description}</strong>`);
+    
+        fastInfo.appendChild(el);
+      };
+      return data;
+    } else {
+      return false;
+    }
   });
 
   const blockItems = await window.data.blockItems().then(async (data) => {

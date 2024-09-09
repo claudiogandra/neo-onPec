@@ -93,6 +93,7 @@ const enableFields = async (brincoData) => {
       field.value = value;
 
     } else {
+      item.removeAttribute('disabled');
       item.value = '';
     }
   }
@@ -240,7 +241,8 @@ const selectRules = async (target, next) => {
   }
 }
 
-const criarTabelaPesagem = async (eventos) => {
+const criarTabelaPesagem = async (eventos = false) => {
+  if (eventos === false) return;
   const ultimoEvento = eventos[0].dataValues;
   // CARREGA OS VALORES NA TELA
   const thead = document.querySelector('#gado-eventos table thead');
